@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 5;
+    [SerializeField] private float moveSpeed = 5;
+    [SerializeField] private float spriteSize = 2f; // escala del sprite
+    private int mentalSanity; // vida (sanidad mental) ϵ [0, 100]
+
     void Start()
     {
-
+        this.mentalSanity = 100;
     }
     
     void Update()
@@ -19,7 +22,14 @@ public class PlayerController : MonoBehaviour
     {
         float xMove = Input.GetAxisRaw("Horizontal");
         float yMove = Input.GetAxisRaw("Vertical");
-        Vector3 move = new Vector3(xMove * moveSpeed * Time.deltaTime, yMove * moveSpeed * Time.deltaTime, 0);
-        transform.Translate(move);
+
+        // voltear sprite según dirección de movimiento horizontal
+        if (xMove > 0) {
+            this.transform.localScale = new Vector3(this.spriteSize, this.spriteSize, this.spriteSize);
+        } else if (xMove < 0) {
+            this.transform.localScale = new Vector3(-this.spriteSize, this.spriteSize, this.spriteSize);
+        }
+
+        this.transform.position += new Vector3(xMove, yMove, 0) * Time.deltaTime * this.moveSpeed;
     }
 }
