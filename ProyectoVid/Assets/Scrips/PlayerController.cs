@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public Insanity sanityBar;
     [SerializeField] private float moveSpeed = 5;
     [SerializeField] private float spriteSize = 2f; // escala del sprite
-    private int mentalSanity; // vida (sanidad mental) ϵ [0, 100]
+    private int mentalSanity=0; // vida (sanidad mental) ϵ [0, 100]
 
     void Start()
     {
-        this.mentalSanity = 100;
+
     }
     
     void Update()
@@ -31,5 +32,20 @@ public class PlayerController : MonoBehaviour
         }
 
         this.transform.position += new Vector3(xMove, yMove, 0) * Time.deltaTime * this.moveSpeed;
+    }
+
+    void takeDamage(int dmg)
+    {
+        mentalSanity += dmg;
+        sanityBar.setSanity(mentalSanity);
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("COLLISION ENTER");
+        if (collision.tag == "Enemy")
+        {
+            Debug.Log("damge taken");
+            takeDamage(10);
+        }
     }
 }

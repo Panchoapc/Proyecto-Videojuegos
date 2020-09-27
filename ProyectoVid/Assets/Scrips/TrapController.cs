@@ -19,14 +19,15 @@ public class TrapController : MonoBehaviour
         
     }
 
-    void OnCollisionTrigger2D(Collider2D collider)
+    void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.tag=="Player")
         {
+            Debug.Log("Player detected");
             Vector3 moveVector = new Vector3(trapSpeed * Time.deltaTime, 0, 0);
             for (int i = 0; i < zoneOfEffect*2; i++)
             {
-                transform.Translate(moveVector*i);
+                trapMovable.Translate(moveVector*i);
             }
         }
     }
