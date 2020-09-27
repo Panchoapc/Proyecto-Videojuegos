@@ -503,9 +503,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
-<<<<<<< HEAD
-  spriteSize: 0
-=======
 --- !u!1 &1557231211
 GameObject:
   m_ObjectHideFlags: 0
@@ -608,7 +605,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
->>>>>>> ad9c274cc45c04f2fd949271b40aa5e010ba3867
 --- !u!1 &1658616546
 GameObject:
   m_ObjectHideFlags: 0
@@ -644,11 +640,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sanityBar: {fileID: 1557231213}
   moveSpeed: 5
-<<<<<<< HEAD
-  spriteSize: 5
-=======
   spriteSize: 2
->>>>>>> ad9c274cc45c04f2fd949271b40aa5e010ba3867
 --- !u!58 &1658616548
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -664,11 +656,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: -0.01, y: 0.21}
   serializedVersion: 2
-<<<<<<< HEAD
-  m_Radius: 0.09937735
-=======
   m_Radius: 0.08190733
->>>>>>> ad9c274cc45c04f2fd949271b40aa5e010ba3867
 --- !u!50 &1658616549
 Rigidbody2D:
   serializedVersion: 4
@@ -748,16 +736,6 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1658616546}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-<<<<<<< HEAD
-  m_LocalPosition: {x: -5.47, y: -2.41, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &1658616552
-PolygonCollider2D:
-=======
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -767,45 +745,10 @@ PolygonCollider2D:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1813094006
 GameObject:
->>>>>>> ad9c274cc45c04f2fd949271b40aa5e010ba3867
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
-  m_GameObject: {fileID: 1658616546}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.64, y: 0.64}
-    newSize: {x: 0.2, y: 0.2}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.13008861, y: -0.04217939}
-      - {x: 0.12965107, y: -0.030377962}
-      - {x: 0.12470971, y: 0.0079942215}
-      - {x: 0.06395369, y: 0.09273275}
-      - {x: -0.017221818, y: 0.11076049}
-      - {x: -0.09593039, y: 0.089535095}
-      - {x: -0.1742736, y: -0.012790728}
-      - {x: -0.17441863, y: -0.17002892}
-      - {x: -0.10642437, y: -0.17930196}
-      - {x: -0.09703536, y: -0.3104068}
-      - {x: 0.068866104, y: -0.30558157}
-      - {x: 0.0688661, y: -0.16866331}
-      - {x: 0.13438962, y: -0.1581983}
-=======
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1813094007}
@@ -995,7 +938,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.08803055
->>>>>>> ad9c274cc45c04f2fd949271b40aa5e010ba3867
 --- !u!1 &2044776794
 GameObject:
   m_ObjectHideFlags: 0
