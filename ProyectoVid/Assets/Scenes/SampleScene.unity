@@ -618,7 +618,6 @@ GameObject:
   - component: {fileID: 1658616549}
   - component: {fileID: 1658616548}
   - component: {fileID: 1658616547}
-  - component: {fileID: 1658616552}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -654,7 +653,7 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.01, y: 0.21}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.08190733
 --- !u!50 &1658616549
@@ -717,8 +716,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0eda82e8596b449449e9eadbd4c93df7, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Color: {r: 0.0073928833, g: 0, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
