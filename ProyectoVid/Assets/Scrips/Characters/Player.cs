@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
-    [SerializeField] protected float moveSpeed = 5;
-    [SerializeField] protected float spriteSize = 2f; // ancho y largo en Unity del sprite
+public class Player : Character {
     [Range(1,100)] private int mentalSanity = 100; // vida (sanidad mental) ϵ [0, 100]
 
     void Start()
     {
+        this.moveSpeed = 5;
         Debug.Log("Player started.");
     }
     
@@ -22,7 +21,8 @@ public class Player : MonoBehaviour {
         float xMove = Input.GetAxisRaw("Horizontal");
         float yMove = Input.GetAxisRaw("Vertical");
 
-        CharacterAux.FlipMovementX(this, xMove, this.spriteSize);
+        this.FlipOnMovementX(xMove);
+        //CharacterAux.FlipMovementX(this, xMove, this.spriteSize);
 
         this.transform.position += new Vector3(xMove, yMove, 0) * Time.deltaTime * this.moveSpeed;
     }

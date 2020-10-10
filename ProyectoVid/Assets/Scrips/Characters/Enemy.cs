@@ -1,43 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
-public class Enemy : MonoBehaviour
-{
-    [SerializeField] protected float moveSpeed;
-    [Range(0,100)]   protected float touchAttack; // daño que hace al tocar al jugador
-    [SerializeField] protected float spriteSize; // tamaño del sprite cuadrado
-    private float health;
+/* Clase base para los enemigos (NPC). Esta clase nunca debe instanciarse en Unity, se hereda según el tipo de enemigo. */
+public class Enemy : Character {
+    [Range(0,100)] protected float touchAttack; // daño que hace al tocar al jugador
+    [Range(0,300)] protected float health; // digamos que normalmente tienen 100 de vida pero los más fuertes tienen hasta 300.
     private Vector3 playerDir;
-    private float lastTimeMove = 0;
-
-    void Start()
-    {
-
-    }
+    //private float lastTimeMove = 0;
     
-    void Update()
-    {
-        FollowPlayer();
-    }
+    protected void FollowPlayer() {
+        //if (Time.time - lastTimeMove > 0.2)
+        //{
+        //    playerDir = (FindObjectOfType<Player>().transform.position - this.transform.position).normalized;
+        //    this.FlipOnMovementX(this.transform.position.x - playerDir.x); // siempre mira al jugador
 
-    protected void FollowPlayer()
-    {
-        if (Time.time - lastTimeMove > 0.2)
-        {
-            playerDir = FindObjectOfType<Player>().transform.position - transform.position;
-            playerDir = playerDir.normalized * moveSpeed/10;
-
-            // voltear sprite según movimiento en X
-            if (playerDir.x > 0) {
-                this.transform.localScale = new Vector3(this.spriteSize, this.spriteSize, this.spriteSize);
-            }
-            else if (playerDir.x < 0) {
-                this.transform.localScale = new Vector3(-this.spriteSize, this.spriteSize, this.spriteSize);
-            }
-
-            transform.position += playerDir;
-            lastTimeMove = Time.time;
-        }
+        //    transform.position += playerDir * this.moveSpeed * Time.deltaTime;
+        //    lastTimeMove = Time.time;
+        //}
+        this.playerDir = (FindObjectOfType<Player>().transform.position - this.transform.position).normalized;
+        this.FlipOnMovementX(playerDir.x - this.transform.position.x); // siempre mira al jugador
+        this.transform.position += this.playerDir * this.moveSpeed * Time.deltaTime;
     }
 }

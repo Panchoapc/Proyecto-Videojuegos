@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Character
 {
     public Insanity sanityBar;
-    [SerializeField] private float moveSpeed = 5;
-    [SerializeField] private float spriteSize = 2f; // escala del sprite
-    private int mentalSanity=0; // vida (sanidad mental) ϵ [0, 100]
+    [Range(0,100)] private int mentalSanity; // vida (sanidad mental)
 
-    void Start()
-    {
-
+    void Start() {
+        this.moveSpeed = 5;
+        this.mentalSanity = 100;
     }
     
     void Update()
@@ -24,12 +22,13 @@ public class PlayerController : MonoBehaviour
         float xMove = Input.GetAxisRaw("Horizontal");
         float yMove = Input.GetAxisRaw("Vertical");
 
+        this.FlipOnMovementX(xMove);
         // voltear sprite según dirección de movimiento horizontal
-        if (xMove > 0) {
-            this.transform.localScale = new Vector3(this.spriteSize, this.spriteSize, this.spriteSize);
-        } else if (xMove < 0) {
-            this.transform.localScale = new Vector3(-this.spriteSize, this.spriteSize, this.spriteSize);
-        }
+        //if (xMove > 0) {
+        //    this.transform.localScale = new Vector3(this.spriteSize, this.spriteSize, this.spriteSize);
+        //} else if (xMove < 0) {
+        //    this.transform.localScale = new Vector3(-this.spriteSize, this.spriteSize, this.spriteSize);
+        //}
 
         this.transform.position += new Vector3(xMove, yMove, 0) * Time.deltaTime * this.moveSpeed;
     }
