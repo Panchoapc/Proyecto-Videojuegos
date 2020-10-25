@@ -8,8 +8,4 @@ public class PizzaMonster : Enemy {
         this.touchAttack = 40;
         this.health = 200;
     }
-
-    void Update() {
-        this.FollowPlayer();
-    }
 }
