@@ -45,3 +45,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 314681495
+    locked: 0
+  - name: Walls
+    uniqueID: 1154439823
+    locked: 0
+  - name: Characters
+    uniqueID: 4287236117
+    locked: 0

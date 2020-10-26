@@ -7,18 +7,45 @@ public class Player : Character
 {
     [SerializeField] private Insanity sanityBar;
     [Range(0,100)] private int mentalSanity; // vida (sanidad mental)
+    public int maxLives = 3;
+    private int currentLives;
     private GameObject weapon;
     private float xMove, yMove; // auxiliares
+    private int startingSanity = 100;
+    private Vector3 startingPos;        // se guarda la posicion inicial para poder volver a esta en el caso de quedarse sin vida
 
     void Start() {
         this.moveSpeed = 5;
         this.mentalSanity = 100;
+        sanityBar.setSanity(startingSanity);   // Se setea la sanity inicial en 100
+        startingPos = transform.position;
+        currentLives = maxLives;
     }
     
-    void Update() {
+    void FixedUpdate() {
         InputController.Process(this);
+        checkSanity();
     }
 
+    void checkSanity()      // funcion que verificara la sanidad del personaje y lo devolvera a la pos incial si se queda sin sanidad
+    {
+        if(mentalSanity <= 0)
+        {
+            transform.position = startingPos;
+            sanityBar.setSanity(startingSanity);        // se vuelve la sanidad a 100
+            mentalSanity = 100;
+            currentLives -= 1;
+        }
+    }
+
+    public int getCurrentLives()
+    {
+        return currentLives;
+    }
+    public int getPlayerSanity()
+    {
+        return mentalSanity;
+    }
     public void TakeDamage(int dmg) {
         this.mentalSanity -= dmg;
         this.sanityBar.setSanity(mentalSanity);
@@ -55,7 +82,8 @@ public class Player : Character
             Utilities.Logf("[Player] Player collided with {0} (tagged \"{1}\")", obj.name, obj.tag);
             switch (obj.tag) {
                 case "Enemy":
-                    // TODO: obtener ataque del enemigo
+                    int enemyAtackDamage = FindObjectOfType<PizzaMonster>().getAttack();
+                    p.TakeDamage(enemyAtackDamage);
                     break;
                 case "Weapon":
                     p.PickUpWeapon(obj);
