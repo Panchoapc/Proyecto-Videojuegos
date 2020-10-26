@@ -7,7 +7,7 @@ public class EndgameMenu : MonoBehaviour
 {
     public void PlayAgain()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1); // vamos a la escena anterior que corresponde a la del juego
+        SceneManager.LoadScene("game", LoadSceneMode.Single); // vamos a la escena game
     }
 
     public void QuitGame()

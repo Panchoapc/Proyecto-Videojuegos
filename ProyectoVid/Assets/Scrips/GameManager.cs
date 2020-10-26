@@ -10,12 +10,24 @@ public class GameManager : MonoBehaviour
         lifeCkeck();
     }
 
+    public void WinGame()
+    {
+        Debug.Log("YOU WON!");
+        End();
+    }
+
     void lifeCkeck()
     {
         int currentLife = FindObjectOfType<Player>().getCurrentLives();
         if (currentLife <= 0)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            Debug.Log("GAME OVER!");
+            SceneManager.LoadScene("EndGame Menu", LoadSceneMode.Single);
         }
+    }
+
+    void End()
+    {
+        SceneManager.LoadScene("WinGame Menu", LoadSceneMode.Single); ;
     }
 }
