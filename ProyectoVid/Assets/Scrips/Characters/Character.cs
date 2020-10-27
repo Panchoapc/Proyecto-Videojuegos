@@ -7,8 +7,8 @@ using UnityEngine;
 /// Clase base para todo personaje (jugador y NPCs).
 /// </summary>
 public abstract class Character : MonoBehaviour {
-    protected float moveSpeed;
-    protected bool isFacingRight = true; // dice si está mirando a la derecha
+    public float moveSpeed { get; protected set; }
+    public bool isFacingRight { get; protected set; } = true; // dice si está mirando a la derecha
 
     /// <summary>
     /// Voltea el sprite de acuerdo al movimiento horizontal.
@@ -19,10 +19,6 @@ public abstract class Character : MonoBehaviour {
             isFacingRight = !isFacingRight;
             this.FlipSprite();
         }
-    }
-
-    public bool IsFacingRight() {
-        return this.isFacingRight;
     }
 
     private void FlipSprite() {

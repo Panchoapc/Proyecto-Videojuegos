@@ -8,7 +8,7 @@ public class Player : Character
 {
     [SerializeField] private Insanity sanityBar;
     [Range(0,100)] private int mentalSanity; // vida (sanidad mental)
-    public int maxLives = 3;
+    public const int maxLives = 3;
     private int currentLives;
     private string weapon; // nombre del arma equipada
     [SerializeField] private GameObject rayGunShot; // tipo `LightRay`, rayo láser del arma de rayos

@@ -10,7 +10,6 @@ public class PizzaMonster : Enemy {
     private static readonly int NIGHTMARE_SANITY = 50; // nivel de sanidad a partir del cual se entra en modo pesadilla
 
     private bool nightmareMode;
-    private int currentHealth;
     private int movementCase = 1;
     private float lastMovCase = 0;
 
@@ -34,7 +33,8 @@ public class PizzaMonster : Enemy {
     private void EnterNightmareMode() {
         Debug.LogFormat("[PizzaMonster] Entered nightmare mode!");
         this.nightmareMode = true;
-        this.moveSpeed = 6;
+        this.moveSpeed+=3;
+        this.touchAttack += 10;
         this.GetComponent<Renderer>().material.color = Color.red;
     }
 
@@ -42,6 +42,7 @@ public class PizzaMonster : Enemy {
         Debug.LogFormat("[PizzaMonster] Exited nightmare mode.");
         this.nightmareMode = false;
         this.moveSpeed = MOVE_SPEED;
+        this.touchAttack = ATTACK;
         this.GetComponent<Renderer>().material.color = Color.white;
     }
 
@@ -71,7 +72,7 @@ public class PizzaMonster : Enemy {
     //    }
     //}
 
-    //void lifeChecker()
+    //void lifeChecker() // esta condición ya se revisa cuando golpea el rayo i.e. luego de un evento que quita vida
     //{
     //    if (currentHealth <= 0)
     //    {

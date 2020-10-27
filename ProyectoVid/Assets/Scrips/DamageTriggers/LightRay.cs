@@ -18,7 +18,7 @@ public class LightRay : MonoBehaviour {
         Player player = FindObjectOfType<Player>();
         Vector3 aux = player.transform.position;
         // se dispara el rayo en la dirección que mira el jugador, y desde su posición
-        if (player.IsFacingRight()) {
+        if (player.isFacingRight) {
             aux.x += spawnPosOffset;
             this.moveDirection = new Vector3(1,0,0);
         }
