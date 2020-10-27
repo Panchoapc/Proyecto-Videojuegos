@@ -39,14 +39,4 @@ public class LightRay : MonoBehaviour {
     private void Update() {
         this.transform.position += this.moveDirection * this.moveSpeed * Time.deltaTime;
     }
-
-    void OnTriggerEnter2D(Collider2D collider)
-    {
-        Destroy(gameObject);
-    }
-
-    public int getRayDamage()
-    {
-        return DAMAGE;
-    }
 }
