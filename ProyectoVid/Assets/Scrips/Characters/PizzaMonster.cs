@@ -33,7 +33,7 @@ public class PizzaMonster : Enemy {
     private void EnterNightmareMode() {
         Debug.LogFormat("[PizzaMonster] Entered nightmare mode!");
         this.nightmareMode = true;
-        this.moveSpeed+=3;
+        this.moveSpeed += 2;
         this.touchAttack += 10;
         this.GetComponent<Renderer>().material.color = Color.red;
     }

@@ -4,15 +4,15 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-public class Player : Character
-{
+public class Player : Character {
+    public static int MAX_LIVES = 3;
+    public static int MAX_SANITY = 100;
+
     [SerializeField] private Insanity sanityBar;
-    [Range(0,100)] private int mentalSanity; // vida (sanidad mental)
-    public const int maxLives = 3;
-    private int currentLives;
+    public int mentalSanity { get; private set; } // vida (sanidad mental) ϵ [0, MAX_SANITY]
+    public int currentLives { get; private set; } // cantidad de intentos ϵ [0, MAX_LIVES]
     private string weapon; // nombre del arma equipada
     [SerializeField] private GameObject rayGunShot; // tipo `LightRay`, rayo láser del arma de rayos
-    private int startingSanity = 100;
     private Vector3 startingPos; // se guarda la posicion inicial para poder volver a esta en el caso de quedarse sin vida
 
     public int GetSanity() { return this.mentalSanity; }
@@ -20,9 +20,9 @@ public class Player : Character
     void Start() {
         this.moveSpeed = 7;
         this.mentalSanity = 100;
-        sanityBar.setSanity(startingSanity);   // Se setea la sanity inicial en 100
-        startingPos = transform.position;
-        currentLives = maxLives;
+        this.sanityBar.setSanity(MAX_SANITY);   // Se setea la sanity inicial en 100
+        this.startingPos = transform.position;
+        this.currentLives = MAX_LIVES;
     }
     
     void Update() {
@@ -35,7 +35,7 @@ public class Player : Character
         if(mentalSanity <= 0)
         {
             transform.position = startingPos;
-            sanityBar.setSanity(startingSanity); // se vuelve la sanidad a 100
+            sanityBar.setSanity(MAX_SANITY); // se vuelve la sanidad a 100
             mentalSanity = 100;
             currentLives -= 1;
         }
@@ -50,13 +50,21 @@ public class Player : Character
         return mentalSanity;
     }
 
+    /// <summary>
+    /// Daño.
+    /// </summary>
     public void TakeDamage(int dmg) {
         this.mentalSanity = System.Math.Max(this.mentalSanity - dmg, 0); // asugurando nunca una vida negativa, para no tener problemas.
+        Debug.LogFormat("[Player] Took {0} damage. {1} remaining", dmg, this.mentalSanity);
         this.sanityBar.setSanity(mentalSanity);
     }
 
+    /// <summary>
+    /// Curación.
+    /// </summary>
     public void Heal(int dmg) {
         this.mentalSanity = System.Math.Min(this.mentalSanity + dmg, 100); // asegurando que nunca queda con más del máximo de vida
+        Debug.LogFormat("[Player] Took {0} damage. {1} remaining", dmg, this.mentalSanity);
         this.sanityBar.setSanity(mentalSanity);
     }
 
