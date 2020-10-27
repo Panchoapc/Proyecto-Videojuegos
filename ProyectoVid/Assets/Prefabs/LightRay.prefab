@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 51030148431018619}
   m_Layer: 0
   m_Name: LightRay
-  m_TagString: Untagged
+  m_TagString: LightRay
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

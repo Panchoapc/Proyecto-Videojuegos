@@ -11,6 +11,9 @@ TagManager:
   - FloorTrigger
   - RaySlot
   - PuzzleObstacle
+  - LightRay
+  - Palta
+  - Wall
   layers:
   - Default
   - TransparentFX
