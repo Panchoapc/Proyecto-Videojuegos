@@ -1,15 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PizzaMonster : Enemy {
-    private static int MOVE_SPEED = 4;
-    private static int ATTACK = 20;
-    private static int MAX_HEALTH = 200;
+    private static readonly int MOVE_SPEED = 4;
+    private static readonly int ATTACK = 20;
+    private static readonly int MAX_HEALTH = 200;
+    private static readonly int NIGHTMARE_SANITY = 50; // nivel de sanidad a partir del cual se entra en modo pesadilla
+
     private bool nightmareMode;
     private int currentHealth;
     private int movementCase = 1;
     private float lastMovCase = 0;
+
     private void Start() {
         this.moveSpeed = MOVE_SPEED;
         this.touchAttack = ATTACK;
@@ -21,10 +25,10 @@ public class PizzaMonster : Enemy {
     override protected void Update() {
         this.FollowPlayer();
         if (this.nightmareMode) return;
-        if (FindObjectOfType<Player>().GetSanity() < 70) {
-            this.EnterNightmareMode();
-        }
-        lifeChecker();
+        bool nightmareCondition = FindObjectOfType<Player>().GetSanity() < NIGHTMARE_SANITY;
+        if (nightmareCondition && !this.nightmareMode) this.EnterNightmareMode();
+        else if (!nightmareCondition && this.nightmareMode) this.ExitNightmareMode();
+        //lifeChecker(); // esta condición ya se revisa cuando golpea el rayo i.e. luego de un evento que quita vida
         //randomMovement();
     }
 
@@ -42,41 +46,39 @@ public class PizzaMonster : Enemy {
         this.GetComponent<Renderer>().material.color = Color.white;
     }
 
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        movementCase = Random.Range(1, 4);
-        lastMovCase = Time.time;
-        if (col.collider.tag == "LightRay")
-        {
-            Debug.Log("Pizza hit by a lightRay");
-            int dmg = FindObjectOfType<LightRay>().getRayDamage();
-            currentHealth -= dmg;
-        }
-    }
+    //void OnCollisionEnter2D(Collision2D col) {
+    //    movementCase = Random.Range(1, 4);
+    //    lastMovCase = Time.time;
+    //    if (col.collider.tag == "LightRay") {
+    //        Debug.Log("Pizza hit by a lightRay");
+    //        int dmg = LightRay.DAMAGE;
+    //        currentHealth -= dmg;
+    //    }
+    //}
 
-    void OnCollisionStay2D(Collision2D collision2D)
-    {
-        if (Time.time - lastMovCase > 2)
-        {
-            lastMovCase = Time.time;
-            if (movementCase <= 2)
-            {
-                movementCase = Random.Range(3, 4);
-            }
-            else
-            {
-                movementCase = Random.Range(1, 2);
-            }
-        }
-    }
+    //void OnCollisionStay2D(Collision2D collision2D)
+    //{
+    //    if (Time.time - lastMovCase > 2)
+    //    {
+    //        lastMovCase = Time.time;
+    //        if (movementCase <= 2)
+    //        {
+    //            movementCase = Random.Range(3, 4);
+    //        }
+    //        else
+    //        {
+    //            movementCase = Random.Range(1, 2);
+    //        }
+    //    }
+    //}
 
-    void lifeChecker()
-    {
-        if (currentHealth <= 0)
-        {
-            Destroy(gameObject);
-        }
-    }
+    //void lifeChecker()
+    //{
+    //    if (currentHealth <= 0)
+    //    {
+    //        Destroy(gameObject);
+    //    }
+    //}
 
     void randomMovement()
     {
@@ -85,27 +87,22 @@ public class PizzaMonster : Enemy {
             lastMovCase = Time.time;
             movementCase = Random.Range(1, 4);
         }
-        Vector2 move;
+        Vector3 moveDir = Vector3.zero;
         switch (movementCase)
         {
             case 1:
-                move = new Vector2(1 * MOVE_SPEED * Time.deltaTime, 0 * MOVE_SPEED * Time.deltaTime);
-                transform.Translate(move);
+                moveDir = new Vector3(1, 0, 0);
                 break;
             case 2:
-                move = new Vector2(-1 * MOVE_SPEED * Time.deltaTime, 0 * MOVE_SPEED * Time.deltaTime);
-                transform.Translate(move);
+                moveDir = new Vector3(-1, 0, 0);
                 break;
             case 3:
-                move = new Vector2(0 * MOVE_SPEED * Time.deltaTime, 1 * MOVE_SPEED * Time.deltaTime);
-                transform.Translate(move);
+                moveDir = new Vector3(0, 1, 0);
                 break;
             case 4:
-                move = new Vector2(0 * MOVE_SPEED * Time.deltaTime, -1 * MOVE_SPEED * Time.deltaTime);
-                transform.Translate(move);
-                break;
-            default:
+                moveDir = new Vector3(0, -1, 0);
                 break;
         }
+        this.transform.position += moveDir * this.moveSpeed * Time.deltaTime;
     }
 }

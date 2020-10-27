@@ -42,7 +42,7 @@ public abstract class Enemy : Character {
         // checking if defeated
         if (this.health <= 0) {
             Debug.LogFormat("[Enemy] Defeated!");
-            Destroy(this);
+            Destroy(this.gameObject);
         }
     }
 }

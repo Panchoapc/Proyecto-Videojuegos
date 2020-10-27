@@ -10,9 +10,8 @@ public class Player : Character
     [Range(0,100)] private int mentalSanity; // vida (sanidad mental)
     public int maxLives = 3;
     private int currentLives;
-    private string weapon;
+    private string weapon; // nombre del arma equipada
     [SerializeField] private GameObject rayGunShot; // tipo `LightRay`, rayo láser del arma de rayos
-    private float xMove, yMove; // auxiliares
     private int startingSanity = 100;
     private Vector3 startingPos; // se guarda la posicion inicial para poder volver a esta en el caso de quedarse sin vida
 
@@ -50,8 +49,14 @@ public class Player : Character
     {
         return mentalSanity;
     }
+
     public void TakeDamage(int dmg) {
-        this.mentalSanity -= dmg;
+        this.mentalSanity = System.Math.Max(this.mentalSanity - dmg, 0); // asugurando nunca una vida negativa, para no tener problemas.
+        this.sanityBar.setSanity(mentalSanity);
+    }
+
+    public void Heal(int dmg) {
+        this.mentalSanity = System.Math.Min(this.mentalSanity + dmg, 100); // asegurando que nunca queda con más del máximo de vida
         this.sanityBar.setSanity(mentalSanity);
     }
 
@@ -104,7 +109,6 @@ public class Player : Character
             }
             Debug.LogFormat("[Player] Player attacked with weapon {0}", p.weapon);
             if (p.weapon == "RayGun") {
-                Debug.LogFormat("[Player] Instantiating RayGun shot");
                 Instantiate(p.rayGunShot);
             }
         }
