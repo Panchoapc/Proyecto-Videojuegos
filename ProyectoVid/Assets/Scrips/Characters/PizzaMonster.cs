@@ -19,7 +19,6 @@ public class PizzaMonster : Enemy {
         this.touchAttack = ATTACK;
         this.health = MAX_HEALTH;
         this.nightmareMode = false;
-        currentHealth = 200;
     }
 
     override protected void Update() {
