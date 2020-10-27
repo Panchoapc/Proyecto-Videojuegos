@@ -16,6 +16,8 @@ public class Player : Character
     private int startingSanity = 100;
     private Vector3 startingPos; // se guarda la posicion inicial para poder volver a esta en el caso de quedarse sin vida
 
+    public int GetSanity() { return this.mentalSanity; }
+
     void Start() {
         this.moveSpeed = 7;
         this.mentalSanity = 100;
