@@ -3,14 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PizzaMonster : Enemy {
-    void Start() {
-        this.moveSpeed = 3;
-        this.touchAttack = 40;
+    private void Start() {
+        this.moveSpeed = 4;
+        this.touchAttack = 10;
         this.health = 200;
-    }
-
-    public int getAttack()
-    {
-        return touchAttack;
     }
 }

@@ -9,6 +9,8 @@ TagManager:
   - Weapon
   - door
   - FloorTrigger
+  - RaySlot
+  - PuzzleObstacle
   layers:
   - Default
   - TransparentFX
@@ -57,4 +59,7 @@ TagManager:
     locked: 0
   - name: Characters
     uniqueID: 4287236117
+    locked: 0
+  - name: Player
+    uniqueID: 957168875
     locked: 0
