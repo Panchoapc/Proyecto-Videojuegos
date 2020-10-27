@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.PlayerLoop;
 
 /// <summary>
-/// Base class for NPC enemies.
+/// Clase base para enmigos NPC.
 /// </summary>
 public abstract class Enemy : Character {
     [Range(0,100)] protected int touchAttack; // daño que hace al tocar al jugador (por colisión)
@@ -15,15 +15,12 @@ public abstract class Enemy : Character {
         return touchAttack;
     }
 
-    /// <summary>
-    /// By default, just chases the player. Remember this can be overriden
-    /// </summary>
     protected virtual void Update() {
         this.FollowPlayer();
     }
 
     /// <summary>
-    /// Moves in the direction of the player.
+    /// Persigue al jugador.
     /// </summary>
     protected void FollowPlayer() {
         this.playerDir = (FindObjectOfType<Player>().transform.position - this.transform.position).normalized;
@@ -31,6 +28,9 @@ public abstract class Enemy : Character {
         this.transform.position += this.playerDir * this.moveSpeed * Time.deltaTime;
     }
 
+    /// <summary>
+    /// Maneja los triggers de daño.
+    /// </summary>
     protected virtual void OnTriggerEnter2D(Collider2D collider) {
         // taking damage if collided with a hitbox of an attack of the player
         Debug.LogFormat("[Enemy] Triggered with collider named \"{0}\" and tagged \"{1}\"", collider.name, collider.tag);

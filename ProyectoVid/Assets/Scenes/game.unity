@@ -6521,10 +6521,11 @@ GameObject:
   m_Component:
   - component: {fileID: 344328187}
   - component: {fileID: 344328186}
+  - component: {fileID: 344328190}
   - component: {fileID: 344328189}
   - component: {fileID: 344328188}
   m_Layer: 0
-  m_Name: PuzzleObstacle
+  m_Name: ExitObstacle
   m_TagString: PuzzleObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6641,6 +6642,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &344328190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344328185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 350818dc073672a4a93b60c7a5c4ae06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &394988205
 GameObject:
   m_ObjectHideFlags: 0
@@ -80210,10 +80223,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1349741945}
   - component: {fileID: 1349741944}
+  - component: {fileID: 1349741948}
   - component: {fileID: 1349741947}
   - component: {fileID: 1349741946}
   m_Layer: 9
-  m_Name: RaySlot
+  m_Name: RaySlotPuzzle
   m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -80277,7 +80291,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1349741943}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 39.74, y: -7.99, z: -108.55859}
+  m_LocalPosition: {x: -16.23, y: -25.57, z: 0}
   m_LocalScale: {x: 9, y: 9, z: 9}
   m_Children: []
   m_Father: {fileID: 0}
@@ -80330,6 +80344,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1349741948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1349741943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb5226175fcc3154b9449f2f65bb6665, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1363699020
 PrefabInstance:
   m_ObjectHideFlags: 0

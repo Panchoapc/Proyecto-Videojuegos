@@ -4,15 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Base class for every character (player and NPCs)
+/// Clase base para todo personaje (jugador y NPCs).
 /// </summary>
 public abstract class Character : MonoBehaviour {
     protected float moveSpeed;
     protected bool isFacingRight = true; // dice si está mirando a la derecha
 
     /// <summary>
-    /// Flips the sprite according to movement on X axis (horizontal).
-    /// In order to work, must be facing right at game start.
+    /// Voltea el sprite de acuerdo al movimiento horizontal.
+    /// Para que funcione, al inicio del juego debe estar mirando hacia la derecha.
     /// </summary>
     protected void FlipOnMovementX(float xMove) {
         if (xMove > 0 && !isFacingRight || xMove < 0 && isFacingRight) {

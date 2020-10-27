@@ -7,7 +7,8 @@ using UnityEngine;
 /// </summary>
 public class LightRay : MonoBehaviour {
 
-    public static int DAMAGE = 30;
+    public static int DAMAGE = 30; // daño
+    public static int DURATION_SECONDS = 1; // segundos que dura antes de desaparecer
 
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float spawnPosOffset; // desfase en eje X, para ajustar y aparecer al lado del jugador y no desde dentro
