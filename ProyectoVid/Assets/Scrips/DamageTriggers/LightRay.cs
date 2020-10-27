@@ -41,9 +41,9 @@ public class LightRay : MonoBehaviour {
         this.transform.position += this.moveDirection * this.moveSpeed * Time.deltaTime;
     }
 
-    private void OnTriggerEnter2D(Collider2D collider) {
-        Debug.LogFormat("[LightRay] Collided wiht {0}", collider.name);
-    }
+    //private void OnTriggerEnter2D(Collider2D collider) {
+    //    Debug.LogFormat("[LightRay] Collided wiht {0}", collider.name);
+    //}
 
     private void Vanish() {
         Destroy(this.gameObject);

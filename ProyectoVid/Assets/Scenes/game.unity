@@ -79650,9 +79650,9 @@ GameObject:
   - component: {fileID: 1349741945}
   - component: {fileID: 1349741944}
   - component: {fileID: 1349741948}
-  - component: {fileID: 1349741946}
   - component: {fileID: 1349741947}
-  m_Layer: 9
+  - component: {fileID: 1349741946}
+  m_Layer: 8
   m_Name: RaySlotPuzzle
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -79757,19 +79757,19 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1349741943}
-  m_BodyType: 2
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7
 --- !u!114 &1349741948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80037,7 +80037,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1496157148}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.79, y: -25.27, z: 0}
+  m_LocalPosition: {x: 2.01, y: -25.46, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 0}
@@ -80439,7 +80439,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1658616546}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.9, y: -24.4, z: 0}
+  m_LocalPosition: {x: 14.19, y: -25.39, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 519420032}
@@ -80798,7 +80798,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1896571605}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 30.6, y: -24.94, z: 0}
+  m_LocalPosition: {x: 32.73, y: -22.04, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children: []
   m_Father: {fileID: 0}

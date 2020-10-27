@@ -9,9 +9,15 @@ using UnityEngine;
 public class RaySlotPuzzle : MonoBehaviour {
     private bool solved = false;
 
-    private void OnTriggerEnter2D(Collider2D collider) {
-        Debug.LogFormat("[RaySlotPuzzle] Triggered by collision named {0}", collider.name);
-        if (solved) return;
+    private void OnCollisionEnter2D(Collision2D collider) {
+        Debug.LogFormat("[RaySlotPuzzle] Triggered by collision named {0}", collider.gameObject.name);
+        if (collider.gameObject.name.Contains("LightRay")) {
+            this.UnlockExit();
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collider) {
+        Debug.LogFormat("[RaySlotPuzzle] Collided with {0}", collider.name);
         if (collider.name.Contains("LightRay")) {
             this.UnlockExit();
         }
@@ -21,7 +27,8 @@ public class RaySlotPuzzle : MonoBehaviour {
     /// Quita al obstáculo de la salida.
     /// </summary>
     private void UnlockExit() {
-        Destroy(FindObjectOfType<ExitObstacle>());
+        if (solved) return;
+        Destroy(FindObjectOfType<ExitObstacle>().gameObject);
         solved = true;
         Debug.LogFormat("[RaySlotPuzzle] Removed obstacle from exit.");
     }
