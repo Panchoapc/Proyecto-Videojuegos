@@ -8,6 +8,7 @@ TagManager:
   - Deadly Trap
   - Weapon
   - door
+  - FloorTrigger
   layers:
   - Default
   - TransparentFX
@@ -46,6 +47,9 @@ TagManager:
     uniqueID: 0
     locked: 0
   - name: Background
+    uniqueID: 1331524311
+    locked: 0
+  - name: Ground
     uniqueID: 314681495
     locked: 0
   - name: Walls
