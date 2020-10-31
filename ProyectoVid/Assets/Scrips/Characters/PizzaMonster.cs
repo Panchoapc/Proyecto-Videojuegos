@@ -10,8 +10,8 @@ public class PizzaMonster : Enemy {
     private static readonly int NIGHTMARE_SANITY = 50; // nivel de sanidad a partir del cual se entra en modo pesadilla
 
     private bool nightmareMode;
-    private int movementCase = 1;
-    private float lastMovCase = 0;
+    //private int movementCase = 1;
+    //private float lastMovCase = 0;
 
     private void Start() {
         this.moveSpeed = MOVE_SPEED;
@@ -80,29 +80,29 @@ public class PizzaMonster : Enemy {
     //    }
     //}
 
-    void randomMovement()
-    {
-        if (Time.time - lastMovCase > 2)
-        {
-            lastMovCase = Time.time;
-            movementCase = Random.Range(1, 4);
-        }
-        Vector3 moveDir = Vector3.zero;
-        switch (movementCase)
-        {
-            case 1:
-                moveDir = new Vector3(1, 0, 0);
-                break;
-            case 2:
-                moveDir = new Vector3(-1, 0, 0);
-                break;
-            case 3:
-                moveDir = new Vector3(0, 1, 0);
-                break;
-            case 4:
-                moveDir = new Vector3(0, -1, 0);
-                break;
-        }
-        this.transform.position += moveDir * this.moveSpeed * Time.deltaTime;
-    }
+    //void randomMovement()
+    //{
+    //    if (Time.time - lastMovCase > 2)
+    //    {
+    //        lastMovCase = Time.time;
+    //        movementCase = Random.Range(1, 4);
+    //    }
+    //    Vector3 moveDir = Vector3.zero;
+    //    switch (movementCase)
+    //    {
+    //        case 1:
+    //            moveDir = new Vector3(1, 0, 0);
+    //            break;
+    //        case 2:
+    //            moveDir = new Vector3(-1, 0, 0);
+    //            break;
+    //        case 3:
+    //            moveDir = new Vector3(0, 1, 0);
+    //            break;
+    //        case 4:
+    //            moveDir = new Vector3(0, -1, 0);
+    //            break;
+    //    }
+    //    this.transform.position += moveDir * this.moveSpeed * Time.deltaTime;
+    //}
 }

@@ -13,7 +13,7 @@ public class Avocado : MonoBehaviour
                 Debug.LogFormat("[AvocadoController] Player health is full!");
                 return;
             }
-            FindObjectOfType<Player>().TakeDamage(-HEALING_POINTS);
+            FindObjectOfType<Player>().Heal(HEALING_POINTS);
             Destroy(this.gameObject);
         }
     }

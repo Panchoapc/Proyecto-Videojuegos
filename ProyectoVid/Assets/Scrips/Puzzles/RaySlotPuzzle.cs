@@ -16,7 +16,7 @@ public class RaySlotPuzzle : MonoBehaviour {
         }
     }
 
-    void OnTriggerEnter2D(Collider2D collider) {
+    private void OnTriggerEnter2D(Collider2D collider) {
         Debug.LogFormat("[RaySlotPuzzle] Collided with {0}", collider.name);
         if (collider.name.Contains("LightRay")) {
             this.UnlockExit();

@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
         End();
     }
 
-    void lifeCkeck()
+    private void lifeCkeck()
     {
         int currentLife = FindObjectOfType<Player>().getCurrentLives();
         if (currentLife <= 0)
@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void End()
+    private void End()
     {
         SceneManager.LoadScene("WinGame Menu", LoadSceneMode.Single); ;
     }

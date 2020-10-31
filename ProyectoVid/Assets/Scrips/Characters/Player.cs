@@ -5,14 +5,14 @@ using UnityEngine;
 using UnityEngine.Assertions;
 
 public class Player : Character {
-    public static int MAX_LIVES = 3;
-    public static int MAX_SANITY = 100;
+    public static readonly int MAX_LIVES = 3;
+    public static readonly int MAX_SANITY = 100;
 
     [SerializeField] private Insanity sanityBar;
     public int mentalSanity { get; private set; } // vida (sanidad mental) ϵ [0, MAX_SANITY]
     public int currentLives { get; private set; } // cantidad de intentos ϵ [0, MAX_LIVES]
     private string weapon; // nombre del arma equipada
-    [SerializeField] private GameObject rayGunShot; // tipo `LightRay`, rayo láser del arma de rayos
+    [SerializeField] private GameObject rayGunShotPrefab; // tipo `LightRay`, rayo láser del arma de rayos
     private Vector3 startingPos; // se guarda la posicion inicial para poder volver a esta en el caso de quedarse sin vida
 
     public int GetSanity() { return this.mentalSanity; }
@@ -30,7 +30,11 @@ public class Player : Character {
         checkSanity();
     }
 
-    void checkSanity() // funcion que verificara la sanidad del personaje y lo devolvera a la pos incial si se queda sin sanidad
+    private void OnCollisionEnter2D(Collision2D collision) {
+        PhysicsController.HandleCollision(this, collision);
+    }
+
+    private void checkSanity() // funcion que verificara la sanidad del personaje y lo devolvera a la pos incial si se queda sin sanidad
     {
         if(mentalSanity <= 0)
         {
@@ -68,9 +72,7 @@ public class Player : Character {
         this.sanityBar.setSanity(mentalSanity);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
-        PhysicsController.HandleCollision(this, collision);
-    }
+    
 
     public void PickUpWeapon(GameObject gotWeapon) {
         if (this.weapon != null) { // si ya tenía arma equipada, la respawnea donde estaba y la des-equipa
@@ -97,13 +99,16 @@ public class Player : Character {
         }
         public static void HandleCollision(Player p, Collision2D collision) {
             GameObject obj = collision.gameObject;
-            Debug.LogFormat("[Player] Player collided with {0} (tagged \"{1}\")", obj.name, obj.tag);
+            //Debug.LogFormat("[Player] Player collided with {0} (tagged \"{1}\")", obj.name, obj.tag);
             switch (obj.tag) {
                 case "Enemy":
                     p.TakeDamage(FindObjectOfType<PizzaMonster>().GetTouchAttack());
                     break;
                 case "Weapon":
                     p.PickUpWeapon(obj);
+                    break;
+                case "door":
+                    FindObjectOfType<GameManager>().WinGame();
                     break;
             }
         }
@@ -117,7 +122,7 @@ public class Player : Character {
             }
             Debug.LogFormat("[Player] Player attacked with weapon {0}", p.weapon);
             if (p.weapon == "RayGun") {
-                Instantiate(p.rayGunShot);
+                Instantiate(p.rayGunShotPrefab);
             }
         }
     }
