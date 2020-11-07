@@ -7,23 +7,21 @@ using UnityEngine.Assertions;
 public class Player : Character {
     public static readonly int MAX_LIVES = 3;
     public static readonly int MAX_SANITY = 100;
-
+    public static readonly float MOVE_SPEED = 7f;
+    
     public int lives { get; private set; } // cantidad de intentos ϵ [0, MAX_LIVES]
     public int mentalSanity { get; private set; } // vida (sanidad mental) ϵ [0, MAX_SANITY]
     private string weapon; // nombre del arma equipada. Inicia null (desarmado).
     private Vector3 startingPos; // se guarda la posicion inicial para poder volver a esta en el caso de quedarse sin vida
     [SerializeField] private Insanity sanityBar;
     [SerializeField] private PlayerLives livesDisplay;
-    [SerializeField] private GameObject rayGunShotPrefab; // tipo `LightRay`, rayo láser del arma de rayos
 
     private void Start() {
-        this.moveSpeed = 7;
-        this.mentalSanity = 100;
-        this.sanityBar.setSanity(MAX_SANITY);   // Se setea la sanity inicial en 100
+        this.moveSpeed = MOVE_SPEED;
+        this.mentalSanity = MAX_SANITY;
+        this.sanityBar.setSanity(MAX_SANITY);
         this.startingPos = this.transform.position;
         this.lives = MAX_LIVES;
-
-        //this.livesDisplay = FindObjectOfType<PlayerLives>();
     }
     
     private void Update() {
@@ -49,7 +47,7 @@ public class Player : Character {
         this.transform.position = this.startingPos;
         this.mentalSanity = MAX_SANITY;
         this.sanityBar.setSanity(MAX_SANITY);
-        livesDisplay.DisplayLives(this.lives); // actualizando corazones visibles
+        this.livesDisplay.DisplayLives(this.lives); // actualizando corazones visibles
     }
 
     /// <summary>
@@ -68,7 +66,7 @@ public class Player : Character {
     /// Curación.
     /// </summary>
     public void Heal(int dmg) {
-        this.mentalSanity = System.Math.Min(this.mentalSanity + dmg, 100); // asegurando que nunca queda con más del máximo de vida
+        this.mentalSanity = System.Math.Min(this.mentalSanity + dmg, MAX_SANITY); // asegurando que nunca queda con más del máximo de vida
         Debug.LogFormat("[Player] Took {0} damage. {1} remaining", dmg, this.mentalSanity);
         this.sanityBar.setSanity(mentalSanity);
     }
@@ -121,7 +119,7 @@ public class Player : Character {
             }
             Debug.LogFormat("[Player] Player attacked with weapon {0}", p.weapon);
             if (p.weapon == "RayGun") {
-                Instantiate(p.rayGunShotPrefab);
+                FindObjectOfType<Factory>().SpawnRayGunShot();
             }
         }
     }

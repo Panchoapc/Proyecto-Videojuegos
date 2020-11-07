@@ -10,7 +10,12 @@ public abstract class Enemy : Character {
     public static readonly int NIGHTMARE_SANITY = 50; // nivel de sanidad por debajo del cual el enemigo entra en modo pesadilla
     public int touchAttack { get; protected set; } // daño que hace al tocar al jugador (por colisión)
     public int health { get; protected set; } // resistencia al daño
-    private Vector3 playerDir;
+    private Vector3 moveDir;
+    protected Transform playerTransform;
+
+    protected virtual void Start() {
+        this.playerTransform = FindObjectOfType<Player>().transform;
+    }
 
     protected virtual void Update() {
         this.FollowPlayer();
@@ -41,9 +46,9 @@ public abstract class Enemy : Character {
     /// Persigue al jugador.
     /// </summary>
     protected void FollowPlayer() {
-        this.playerDir = (FindObjectOfType<Player>().transform.position - this.transform.position).normalized;
-        this.FlipOnMovementX(playerDir.x - this.transform.position.x); // siempre mira al jugador
-        this.transform.position += this.playerDir * this.moveSpeed * Time.deltaTime;
+        this.moveDir = (playerTransform.position - this.transform.position).normalized;
+        this.FlipOnMovementX(moveDir.x - this.transform.position.x); // siempre mira al jugador
+        this.transform.position += this.moveDir * this.moveSpeed * Time.deltaTime;
     }
 
     /// <summary>

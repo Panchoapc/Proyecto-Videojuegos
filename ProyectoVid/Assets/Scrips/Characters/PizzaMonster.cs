@@ -1,27 +1,37 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class PizzaMonster : Enemy {
-    private static readonly int MOVE_SPEED = 4;
-    private static readonly int ATTACK = 20;
+    private static readonly float MOVE_SPEED = 4f;
+    private static readonly int BITE_ATTACK = 30;
     private static readonly int MAX_HEALTH = 200;
 
     private bool inNightmareMode = false;
 
-    private void Start() {
+    protected override void Start() {
+        this.playerTransform = FindObjectOfType<Player>().transform;
         this.moveSpeed = MOVE_SPEED;
-        this.touchAttack = ATTACK;
+        this.touchAttack = BITE_ATTACK;
         this.health = MAX_HEALTH;
     }
 
-    override protected void Update() {
+    protected override void Update() {
         this.FollowPlayer();
         if (this.inNightmareMode) return;
         bool nightmareCondition = FindObjectOfType<Player>().mentalSanity < Enemy.NIGHTMARE_SANITY;
         if (nightmareCondition && !this.inNightmareMode) this.EnterNightmareMode();
         else if (!nightmareCondition && this.inNightmareMode) this.ExitNightmareMode();
+    }
+
+    /// <summary>
+    /// Pega una mascada al jugador.
+    /// </summary>
+    private void BitePlayer() {
+        // TODO: hacer daño y ejecutar animación de mordida
+        throw new NotImplementedException();
     }
 
     protected override void EnterNightmareMode() {
@@ -36,7 +46,7 @@ public class PizzaMonster : Enemy {
         Debug.LogFormat("[PizzaMonster] Exited nightmare mode.");
         this.inNightmareMode = false;
         this.moveSpeed = MOVE_SPEED;
-        this.touchAttack = ATTACK;
+        this.touchAttack = BITE_ATTACK;
         this.GetComponent<Renderer>().material.color = Color.white;
     }
 }
