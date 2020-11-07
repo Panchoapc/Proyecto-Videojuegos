@@ -3,31 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
-{
-    void FixedUpdate()
-    {
-        lifeCkeck();
+public class GameManager : MonoBehaviour {
+    /// <summary>
+    /// GAME OVER.
+    /// </summary>
+    public void LooseGame() {
+        SceneManager.LoadScene("LooseGameMenu", LoadSceneMode.Single);
     }
 
-    public void WinGame()
-    {
-        Debug.Log("YOU WON!");
-        End();
-    }
-
-    private void lifeCkeck()
-    {
-        int currentLife = FindObjectOfType<Player>().getCurrentLives();
-        if (currentLife <= 0)
-        {
-            Debug.Log("GAME OVER!");
-            SceneManager.LoadScene("EndGame Menu", LoadSceneMode.Single);
-        }
-    }
-
-    private void End()
-    {
-        SceneManager.LoadScene("WinGame Menu", LoadSceneMode.Single); ;
+    /// <summary>
+    /// El jugador gana.
+    /// </summary>
+    public void WinGame() {
+        SceneManager.LoadScene("WinGameMenu", LoadSceneMode.Single);
     }
 }

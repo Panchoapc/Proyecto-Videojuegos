@@ -7,12 +7,11 @@ public class EndgameMenu : MonoBehaviour
 {
     public void PlayAgain()
     {
-        SceneManager.LoadScene("game", LoadSceneMode.Single); // vamos a la escena game
+        SceneManager.LoadScene("Level1", LoadSceneMode.Single);
     }
 
     public void QuitGame()
     {
-        Debug.Log("QUIT");
         Application.Quit(); // este comando no funciona en el editor de UNITY
     }
 }

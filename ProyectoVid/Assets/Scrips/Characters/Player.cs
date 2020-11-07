@@ -8,59 +8,60 @@ public class Player : Character {
     public static readonly int MAX_LIVES = 3;
     public static readonly int MAX_SANITY = 100;
 
-    [SerializeField] private Insanity sanityBar;
+    public int lives { get; private set; } // cantidad de intentos ϵ [0, MAX_LIVES]
     public int mentalSanity { get; private set; } // vida (sanidad mental) ϵ [0, MAX_SANITY]
-    public int currentLives { get; private set; } // cantidad de intentos ϵ [0, MAX_LIVES]
-    private string weapon; // nombre del arma equipada
-    [SerializeField] private GameObject rayGunShotPrefab; // tipo `LightRay`, rayo láser del arma de rayos
+    private string weapon; // nombre del arma equipada. Inicia null (desarmado).
     private Vector3 startingPos; // se guarda la posicion inicial para poder volver a esta en el caso de quedarse sin vida
+    [SerializeField] private Insanity sanityBar;
+    [SerializeField] private PlayerLives livesDisplay;
+    [SerializeField] private GameObject rayGunShotPrefab; // tipo `LightRay`, rayo láser del arma de rayos
 
-    public int GetSanity() { return this.mentalSanity; }
-
-    void Start() {
+    private void Start() {
         this.moveSpeed = 7;
         this.mentalSanity = 100;
         this.sanityBar.setSanity(MAX_SANITY);   // Se setea la sanity inicial en 100
-        this.startingPos = transform.position;
-        this.currentLives = MAX_LIVES;
+        this.startingPos = this.transform.position;
+        this.lives = MAX_LIVES;
+
+        //this.livesDisplay = FindObjectOfType<PlayerLives>();
     }
     
-    void Update() {
+    private void Update() {
         InputController.Process(this);
-        checkSanity();
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
         PhysicsController.HandleCollision(this, collision);
     }
 
-    private void checkSanity() // funcion que verificara la sanidad del personaje y lo devolvera a la pos incial si se queda sin sanidad
-    {
-        if(mentalSanity <= 0)
-        {
-            transform.position = startingPos;
-            sanityBar.setSanity(MAX_SANITY); // se vuelve la sanidad a 100
-            mentalSanity = 100;
-            currentLives -= 1;
-        }
-    }
+    /// <summary>
+    /// Método que debe ser llamado cuando se cumple la condición de perder una vida.
+    /// Revisa si hay GAME OVER, y sino reinicia la posición y sanidad iniciales.
+    /// </summary>
+    private void LooseLive() {
+        this.lives--;
 
-    public int getCurrentLives()
-    {
-        return currentLives;
-    }
-    public int getPlayerSanity()
-    {
-        return mentalSanity;
+        if (this.lives <= 0) { // GAME OVER
+            Debug.LogFormat("[Player] Out of lives!");
+            FindObjectOfType<GameManager>().LooseGame();
+            return;
+        }
+        this.transform.position = this.startingPos;
+        this.mentalSanity = MAX_SANITY;
+        this.sanityBar.setSanity(MAX_SANITY);
+        livesDisplay.DisplayLives(this.lives); // actualizando corazones visibles
     }
 
     /// <summary>
-    /// Daño.
+    /// Toma daño y luego revisa si perdió una vida.
     /// </summary>
     public void TakeDamage(int dmg) {
         this.mentalSanity = System.Math.Max(this.mentalSanity - dmg, 0); // asugurando nunca una vida negativa, para no tener problemas.
         Debug.LogFormat("[Player] Took {0} damage. {1} remaining", dmg, this.mentalSanity);
         this.sanityBar.setSanity(mentalSanity);
+        if (this.mentalSanity <= 0) {
+            this.LooseLive();
+        }
     }
 
     /// <summary>
@@ -72,9 +73,7 @@ public class Player : Character {
         this.sanityBar.setSanity(mentalSanity);
     }
 
-    
-
-    public void PickUpWeapon(GameObject gotWeapon) {
+    private void PickUpWeapon(GameObject gotWeapon) {
         if (this.weapon != null) { // si ya tenía arma equipada, la respawnea donde estaba y la des-equipa
             //Instantiate(this.weapon);
         }
@@ -102,7 +101,7 @@ public class Player : Character {
             //Debug.LogFormat("[Player] Player collided with {0} (tagged \"{1}\")", obj.name, obj.tag);
             switch (obj.tag) {
                 case "Enemy":
-                    p.TakeDamage(FindObjectOfType<PizzaMonster>().GetTouchAttack());
+                    p.TakeDamage(FindObjectOfType<PizzaMonster>().touchAttack);
                     break;
                 case "Weapon":
                     p.PickUpWeapon(obj);

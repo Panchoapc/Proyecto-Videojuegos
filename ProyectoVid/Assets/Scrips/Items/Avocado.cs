@@ -2,18 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Avocado : MonoBehaviour
-{
-    private static readonly int HEALING_POINTS = 20;
+/// <summary>
+/// La palta que recupera sanidad.
+/// </summary>
+public class Avocado : MonoBehaviour {
+    private static readonly int HEALING_POINTS = 30;
 
-    void OnTriggerEnter2D(Collider2D collider)
-    {
+    private void OnTriggerEnter2D(Collider2D collider) {
         if (collider.tag == "Player") {
-            if (FindObjectOfType<Player>().getPlayerSanity() == 100) {
-                Debug.LogFormat("[AvocadoController] Player health is full!");
+            Player p = FindObjectOfType<Player>();
+            if (p.mentalSanity == 100) {
+                Debug.LogFormat("[Avocado] Player health is full!");
                 return;
             }
-            FindObjectOfType<Player>().Heal(HEALING_POINTS);
+            p.Heal(HEALING_POINTS);
             Destroy(this.gameObject);
         }
     }
