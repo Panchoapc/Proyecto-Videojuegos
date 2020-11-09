@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.PlayerLoop;
+﻿using UnityEngine;
 
 /// <summary>
 /// Clase base para enmigos NPC.
@@ -48,7 +45,17 @@ public abstract class Enemy : Character {
     protected void FollowPlayer() {
         this.moveDir = (playerTransform.position - this.transform.position).normalized;
         this.FlipOnMovementX(moveDir.x - this.transform.position.x); // siempre mira al jugador
-        this.transform.position += this.moveDir * this.moveSpeed * Time.deltaTime;
+        this.Move(this.moveDir, this.moveSpeed);
+    }
+
+    public void TakeDamage(int dmg) {
+        this.health = System.Math.Max(this.health - dmg, 0);
+        Debug.LogFormat("[Enemy] Took {0} damage, {1} remaining", dmg, this.health);
+
+        if (this.health <= 0) {
+            Debug.LogFormat("[Enemy] Defeated!");
+            Destroy(this.gameObject);
+        }
     }
 
     /// <summary>

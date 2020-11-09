@@ -63,10 +63,6 @@ public class Xbox360 : Enemy {
         Invoke(nameof(DodgeCooldown), DODGE_COOLDOWN);
     }
 
-    private void Move(Vector3 moveDir, float speed) {
-        this.transform.position += moveDir * speed * Time.deltaTime;
-    }
-
     /// <summary>
     /// Finaliza el estado de esquivar, desbloqueando la dirección de movimiento.
     /// </summary>
@@ -87,12 +83,11 @@ public class Xbox360 : Enemy {
     /// </summary>
     private void RayAttack() {
         Debug.LogFormat("[Xbox360] Attacked with light ray!");
-        animator.SetBool("rayAttacking", true); // llamando a la animación de ataque
+        animator.SetTrigger("rayAttack"); // llamando a la animación de ataque
         Invoke(nameof(CreateOneRay), 0);
         Invoke(nameof(CreateOneRay), 0.3f);
         this.rayAvailable = false;
         Invoke(nameof(RayAttackCooldown), RAY_ATTACK_COOLDOWN);
-        animator.SetBool("rayAttacking", false);
     }
 
     private void CreateOneRay() {

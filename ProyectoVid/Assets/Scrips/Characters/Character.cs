@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// Clase base para todo personaje (jugador y NPCs).
@@ -9,6 +6,13 @@ using UnityEngine;
 public abstract class Character : MonoBehaviour {
     public float moveSpeed { get; protected set; }
     public bool isFacingRight { get; protected set; } = true; // dice si está mirando a la derecha
+
+    /// <summary>
+    /// Se mueve en la dirección `dir` (normalizado) con velocidad `speed`.
+    /// </summary>
+    protected void Move(Vector3 dir, float speed) {
+        this.transform.position += dir * speed * Time.deltaTime;
+    }
 
     /// <summary>
     /// Voltea el sprite de acuerdo al movimiento horizontal.

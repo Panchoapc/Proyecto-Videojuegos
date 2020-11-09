@@ -1,14 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using UnityEditor.PackageManager;
 using UnityEngine;
-using UnityEngine.Assertions;
 
 public class Player : Character {
     public static readonly int MAX_LIVES = 3;
     public static readonly int MAX_SANITY = 100;
-    public static readonly float MOVE_SPEED = 7f;
+    public static readonly float MOVE_SPEED = 7;
     
     public int lives { get; private set; } // cantidad de intentos ϵ [0, MAX_LIVES]
     public int mentalSanity { get; private set; } // vida (sanidad mental) ϵ [0, MAX_SANITY]
@@ -18,9 +17,13 @@ public class Player : Character {
     [SerializeField] private PlayerLives livesDisplay;
 
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private Sprite defaultSprite;
-    [SerializeField] private Sprite wRayGunSprite;
-    [SerializeField] private Sprite wShochSwordSprite;
+    [SerializeField] private Sprite spriteDefaultIdle;
+    [SerializeField] private Sprite spriteRayGunIdle;
+    [SerializeField] private Sprite spriteSwordIdle;
+    [SerializeField] private Sprite spriteSwordAttack;
+    [SerializeField] private float swordAttackSpriteDuration = 0.3f; // duración del sprite de atacar con la espada
+
+    [SerializeField] public PlayerCQC swordCombatHandler;
 
     private void Start() {
         this.moveSpeed = MOVE_SPEED;
@@ -61,7 +64,7 @@ public class Player : Character {
     /// </summary>
     public void TakeDamage(int dmg) {
         this.mentalSanity = System.Math.Max(this.mentalSanity - dmg, 0); // asugurando nunca una vida negativa, para no tener problemas.
-        Debug.LogFormat("[Player] Took {0} damage. {1} remaining", dmg, this.mentalSanity);
+        Debug.LogFormat("[Player] Took {0} damage, {1} remaining", dmg, this.mentalSanity);
         this.sanityBar.setSanity(mentalSanity);
         if (this.mentalSanity <= 0) {
             this.LooseLive();
@@ -73,23 +76,24 @@ public class Player : Character {
     /// </summary>
     public void Heal(int dmg) {
         this.mentalSanity = System.Math.Min(this.mentalSanity + dmg, MAX_SANITY); // asegurando que nunca queda con más del máximo de vida
-        Debug.LogFormat("[Player] Took {0} damage. {1} remaining", dmg, this.mentalSanity);
+        Debug.LogFormat("[Player] Healed {0}, {1} remaining", dmg, this.mentalSanity);
         this.sanityBar.setSanity(mentalSanity);
     }
 
     private void PickUpWeapon(GameObject gotWeapon) {
-        if (this.weapon != null) { // si ya tenía arma equipada, la respawnea donde estaba y la des-equipa
-            //Instantiate(this.weapon);
-        }
+        //if (this.weapon != null) { // si ya tenía arma equipada, la respawnea donde estaba y la des-equipa
+        //    Instantiate(this.weapon);
+        //}
         this.weapon = gotWeapon.name;
         Debug.LogFormat("[Player] Picked up {0}", this.weapon);
+
         // cambiando el sprite de acuerdo al arma recogida
         switch (weapon) {
             case "RayGun":
-                this.spriteRenderer.sprite = this.wRayGunSprite;
+                this.spriteRenderer.sprite = this.spriteRayGunIdle;
                 break;
             case "ShockSword":
-                this.spriteRenderer.sprite = this.wShochSwordSprite;
+                this.spriteRenderer.sprite = this.spriteSwordIdle;
                 break;
             default:
                 Debug.LogErrorFormat("[Player] Error: unkown weapon name picked up (couldn't find sprite).");
@@ -98,10 +102,17 @@ public class Player : Character {
         Destroy(gotWeapon); // des-spawnea el arma recién recogida
     }
 
+    /// <summary>
+    /// Cambia al sprite al de la espada Idle.
+    /// </summary>
+    private void SwordRestoreSprite() {
+        this.spriteRenderer.sprite = this.spriteSwordIdle;
+    }
+
     private static class InputController {
         public static void Process(Player p) {
             PhysicsController.Move(p, Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-            if (Input.GetKeyDown("space")) {
+            if (Input.GetKeyDown(KeyCode.Space)) {
                 StateController.Attack(p);
             }
         }
@@ -117,7 +128,7 @@ public class Player : Character {
             //Debug.LogFormat("[Player] Collided with {0} (tagged \"{1}\")", obj.name, obj.tag);
             switch (obj.tag) {
                 case "Enemy":
-                    p.TakeDamage(FindObjectOfType<PizzaMonster>().touchAttack);
+                    p.TakeDamage(collision.gameObject.GetComponent<Enemy>().touchAttack);
                     break;
                 case "xboxRayShot":
                     p.TakeDamage(Xbox360.RAY_ATTACK);
@@ -130,6 +141,10 @@ public class Player : Character {
                     break;
             }
         }
+        public static void HandleTrigger(Player p, Collider2D collision) {
+            // TODO: recibir daño de triggers e.g. el rayo de la Xbox
+            throw new NotImplementedException();
+        }
     }
 
     private static class StateController {
@@ -139,8 +154,15 @@ public class Player : Character {
                 return;
             }
             Debug.LogFormat("[Player] Player attacked with weapon {0}", p.weapon);
-            if (p.weapon == "RayGun") {
-                FindObjectOfType<Factory>().SpawnRayGunShot();
+            switch (p.weapon) {
+                case "RayGun":
+                    FindObjectOfType<Factory>().SpawnRayGunShot();
+                    break;
+                case "ShockSword":
+                    p.swordCombatHandler.SwordAttack();
+                    p.spriteRenderer.sprite = p.spriteSwordAttack;
+                    p.Invoke(nameof(p.SwordRestoreSprite), p.swordAttackSpriteDuration);
+                    break;
             }
         }
     }
