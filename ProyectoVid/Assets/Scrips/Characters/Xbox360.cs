@@ -6,18 +6,22 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 public class Xbox360 : Enemy {
-    private static readonly float MOVE_SPEED = 3.2f;
-    private static readonly int TOUCH_ATTACK = 15;
-    private static readonly int RAY_ATTACK = 45;
-    private static readonly int MAX_HEALTH = 150;
-    private static readonly float SIGHT_DISTANCE = 10f; // unidades de distancia a la que puede detectar al jugador para perseguirlo
-    private static readonly float RAY_ATTACK_COOLDOWN = 2f; // segundos que hay entre disparos de rayos láser
+    public static readonly float MOVE_SPEED = 3.2f; // velocidad base de movimiento
+    public static readonly int TOUCH_ATTACK = 15; // ataque por contacto
+    public static readonly int RAY_ATTACK = 45; // ataque por rayo
+    public static readonly int MAX_HEALTH = 150;
+    public static readonly float RAY_ATTACK_COOLDOWN = 2; // segundos que hay entre disparos de rayos láser
+    public static readonly float DODGE_SPEED = 6; // velocidad a la que realiza el patrón de movimiento de esquivar
+    public static readonly float DODGE_TIME = 1; // segundos por los que se mantiene esquivando
+    public static readonly float DODGE_COOLDOWN = 4; // intervalo de tiempo (segundos) mínimo entre movimientos de esquivar
 
     [SerializeField] private Animator animator;
     private bool isInNightmareMode = false;
-    private bool isAttacking = false;
     private bool rayAvailable = true; // para el cooldown del rayo
     private Player player;
+
+    private bool isDodging = false;
+    private bool dodgeAvailable = true;
 
     protected override void Start() {
         this.moveSpeed = MOVE_SPEED;
@@ -26,24 +30,18 @@ public class Xbox360 : Enemy {
         this.player = FindObjectOfType<Player>();
         this.playerTransform = player.transform;
     }
-
+    
     protected override void Update() {
-        bool nightmareCondition = this.player.mentalSanity < Enemy.NIGHTMARE_SANITY;
-
-        if (this.isInNightmareMode) {
-            // ...
-            if (this.rayAvailable) {
-                this.RayAttack();
-                rayAvailable = false;
-                Invoke("RayAttackCooldown", RAY_ATTACK_COOLDOWN);
-            }
+        if (this.isDodging) {
+            this.Move(this.moveDir, DODGE_SPEED);
             return;
         }
-        if (Vector2.Distance(this.transform.position, this.playerTransform.position) <= SIGHT_DISTANCE) {
-            this.FollowPlayer();
-        }
-        else {
-            // ...
+
+        this.FollowPlayer();
+        bool nightmareCondition = this.player.mentalSanity < Enemy.NIGHTMARE_SANITY;
+        if (this.isInNightmareMode) { // en el modo pesadilla, puede esquivar y tirar rayos
+            if (this.dodgeAvailable && UnityEngine.Random.value < 0.2) this.DodgeMove(player.transform);
+            if (this.rayAvailable) this.RayAttack();
         }
 
         if (nightmareCondition && !this.isInNightmareMode) this.EnterNightmareMode();
@@ -51,24 +49,58 @@ public class Xbox360 : Enemy {
     }
 
     /// <summary>
-    /// Patrón de movimiento perpendicular a la dirección del jugador.
+    /// Movimiento perpendicular a la dirección hacia `target`.
     /// </summary>
-    private void DodgeMove() {
-        throw new NotImplementedException();
+    private void DodgeMove(Transform target) {
+        Debug.LogFormat("[Xbox360] Dodging...");
+        Vector3 targetDir = (target.position - this.transform.position).normalized;
+        float rotationDir = UnityEngine.Random.value < 0.5f ? 1 : -1;
+        Vector3 dodgeDir = Quaternion.AngleAxis(90*rotationDir, targetDir).eulerAngles.normalized;
+        this.moveDir = dodgeDir;
+        this.isDodging = true;
+        this.dodgeAvailable = false;
+        Invoke(nameof(FinishDodge), DODGE_TIME);
+        Invoke(nameof(DodgeCooldown), DODGE_COOLDOWN);
+    }
+
+    private void Move(Vector3 moveDir, float speed) {
+        this.transform.position += moveDir * speed * Time.deltaTime;
     }
 
     /// <summary>
-    /// Ataca con tres rayos de luz que salen de las infames tres luces rojas de la muerte y destrucción.
+    /// Finaliza el estado de esquivar, desbloqueando la dirección de movimiento.
     /// </summary>
-    public void RayAttack() {
+    private void FinishDodge() {
+        this.isDodging = false;
+    }
+
+    /// <summary>
+    /// Habilita el movimiento de esquivar nuevamente para poder ser usado posiblemente en el siguiente `Update()`.
+    /// </summary>
+    private void DodgeCooldown() {
+        Debug.LogFormat("[Xbox360] Dodge move cooled down.");
+        this.dodgeAvailable = true;
+    }
+
+    /// <summary>
+    /// Ataca con rayos de luz que salen de las legendarias tres luces rojas de la muerte.
+    /// </summary>
+    private void RayAttack() {
         Debug.LogFormat("[Xbox360] Attacked with light ray!");
         animator.SetBool("rayAttacking", true); // llamando a la animación de ataque
-        // ...
+        Invoke(nameof(CreateOneRay), 0);
+        Invoke(nameof(CreateOneRay), 0.3f);
+        this.rayAvailable = false;
+        Invoke(nameof(RayAttackCooldown), RAY_ATTACK_COOLDOWN);
         animator.SetBool("rayAttacking", false);
     }
 
+    private void CreateOneRay() {
+        FindObjectOfType<Factory>().SpawnXboxRayShot();
+    }
+
     /// <summary>
-    /// Habilita el ataque de rayo para ser usado nuevamente en el siguiente Update.
+    /// Habilita el ataque de rayo para ser usado nuevamente en el siguiente `Update()`.
     /// </summary>
     private void RayAttackCooldown() {
         rayAvailable = true;

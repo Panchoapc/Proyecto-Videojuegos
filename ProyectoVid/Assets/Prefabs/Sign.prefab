@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 189856088319459491}
   - component: {fileID: 189856088319459490}
   - component: {fileID: 3985901312161028118}
-  - component: {fileID: 2756032563942179006}
   m_Layer: 8
   m_Name: Sign
   m_TagString: Untagged
@@ -74,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: -7731179
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a256d059abefa6943881fa67d6b8f930, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7683a128d78f3f642ae5fcea529e3d9f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -158,18 +157,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.81727695, y: 0.7084227}
   m_EdgeRadius: 0
---- !u!114 &2756032563942179006
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 189856088319459488}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1fab7805e6e69b4a8e2f3062bc75b3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  contextOn: {fileID: 11400000, guid: 308a361101e328d48b96b0dcfe5b3aef, type: 2}
-  contextOff: {fileID: 11400000, guid: e7d5f53029dffc940a3a6def3569fe52, type: 2}
-  playerInRange: 0

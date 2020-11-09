@@ -59803,7 +59803,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 421489101}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.9933472, y: 2.6683197, z: -3.4765625}
+  m_LocalPosition: {x: 4.57, y: 3.32, z: -3.4765625}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -80157,6 +80157,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sanityBar: {fileID: 1557231213}
   livesDisplay: {fileID: 883850994}
+  spriteRenderer: {fileID: 1658616550}
+  defaultSprite: {fileID: 21300000, guid: 1695879f39081c840a986cf712b1917a, type: 3}
+  wRayGunSprite: {fileID: 21300000, guid: 5f8107fffa35ba641a112c2af75b04a5, type: 3}
+  wShochSwordSprite: {fileID: 21300000, guid: 15ccdd9a177888f45ade9ef782520697, type: 3}
 --- !u!58 &1658616548
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -80164,7 +80168,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1658616546}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -80292,10 +80296,10 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1658616546}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.02040188, y: -0.044725873}
@@ -80437,7 +80441,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1752360292}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 26.28, y: -10.66, z: 1}
+  m_LocalPosition: {x: 27.34, y: -10.65, z: 1}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 0}
@@ -80477,7 +80481,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0074395835, y: 0.30434015}
+  m_Offset: {x: -0.006233841, y: 0.2988073}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -80488,7 +80492,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.30871427, y: 0.63853663}
+  m_Size: {x: 0.30388868, y: 0.6274709}
   m_EdgeRadius: 0
 --- !u!95 &1752360297
 Animator:
@@ -80746,7 +80750,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1896571605}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 32.73, y: -22.04, z: 0}
+  m_LocalPosition: {x: 12.35, y: -9.61, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children: []
   m_Father: {fileID: 0}
@@ -80860,12 +80864,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Factory
       objectReference: {fileID: 0}
-    - target: {fileID: 601278142588941942, guid: 86b603b41daecc942b061d810fc28388,
-        type: 3}
-      propertyPath: rayGunShotPrefab
-      value: 
-      objectReference: {fileID: 5390638377688221650, guid: 028e1fedc3fe61b469716d891e56995f,
-        type: 3}
     - target: {fileID: 601278142588941943, guid: 86b603b41daecc942b061d810fc28388,
         type: 3}
       propertyPath: m_LocalPosition.x

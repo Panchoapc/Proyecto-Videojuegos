@@ -5,11 +5,11 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class PizzaMonster : Enemy {
-    private static readonly float MOVE_SPEED = 4f;
-    private static readonly int BITE_ATTACK = 30;
-    private static readonly int MAX_HEALTH = 200;
+    public static readonly float MOVE_SPEED = 4f;
+    public static readonly int BITE_ATTACK = 30;
+    public static readonly int MAX_HEALTH = 200;
 
-    private bool inNightmareMode = false;
+    private bool isInNightmareMode = false;
 
     protected override void Start() {
         this.playerTransform = FindObjectOfType<Player>().transform;
@@ -20,10 +20,10 @@ public class PizzaMonster : Enemy {
 
     protected override void Update() {
         this.FollowPlayer();
-        if (this.inNightmareMode) return;
+        if (this.isInNightmareMode) return;
         bool nightmareCondition = FindObjectOfType<Player>().mentalSanity < Enemy.NIGHTMARE_SANITY;
-        if (nightmareCondition && !this.inNightmareMode) this.EnterNightmareMode();
-        else if (!nightmareCondition && this.inNightmareMode) this.ExitNightmareMode();
+        if (nightmareCondition && !this.isInNightmareMode) this.EnterNightmareMode();
+        else if (!nightmareCondition && this.isInNightmareMode) this.ExitNightmareMode();
     }
 
     /// <summary>
@@ -36,7 +36,7 @@ public class PizzaMonster : Enemy {
 
     protected override void EnterNightmareMode() {
         Debug.LogFormat("[PizzaMonster] Entered nightmare mode!");
-        this.inNightmareMode = true;
+        this.isInNightmareMode = true;
         this.moveSpeed += 2;
         this.touchAttack += 10;
         this.GetComponent<Renderer>().material.color = Color.red;
@@ -44,7 +44,7 @@ public class PizzaMonster : Enemy {
 
     protected override void ExitNightmareMode() {
         Debug.LogFormat("[PizzaMonster] Exited nightmare mode.");
-        this.inNightmareMode = false;
+        this.isInNightmareMode = false;
         this.moveSpeed = MOVE_SPEED;
         this.touchAttack = BITE_ATTACK;
         this.GetComponent<Renderer>().material.color = Color.white;

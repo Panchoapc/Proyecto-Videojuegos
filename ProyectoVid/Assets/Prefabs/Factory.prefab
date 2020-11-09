@@ -43,3 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e11dc5a80f9837c4890b68fcba61c369, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rayGunShotPrefab: {fileID: 5390638377688221650, guid: 028e1fedc3fe61b469716d891e56995f,
+    type: 3}
+  xboxRayShotPrefab: {fileID: 1061657318739617209, guid: c731ae5fc3c2db540bdfdb72923e6da2,
+    type: 3}

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -15,6 +16,11 @@ public class Player : Character {
     private Vector3 startingPos; // se guarda la posicion inicial para poder volver a esta en el caso de quedarse sin vida
     [SerializeField] private Insanity sanityBar;
     [SerializeField] private PlayerLives livesDisplay;
+
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Sprite defaultSprite;
+    [SerializeField] private Sprite wRayGunSprite;
+    [SerializeField] private Sprite wShochSwordSprite;
 
     private void Start() {
         this.moveSpeed = MOVE_SPEED;
@@ -77,6 +83,18 @@ public class Player : Character {
         }
         this.weapon = gotWeapon.name;
         Debug.LogFormat("[Player] Picked up {0}", this.weapon);
+        // cambiando el sprite de acuerdo al arma recogida
+        switch (weapon) {
+            case "RayGun":
+                this.spriteRenderer.sprite = this.wRayGunSprite;
+                break;
+            case "ShockSword":
+                this.spriteRenderer.sprite = this.wShochSwordSprite;
+                break;
+            default:
+                Debug.LogErrorFormat("[Player] Error: unkown weapon name picked up (couldn't find sprite).");
+                break;
+        }
         Destroy(gotWeapon); // des-spawnea el arma recién recogida
     }
 
@@ -96,10 +114,13 @@ public class Player : Character {
         }
         public static void HandleCollision(Player p, Collision2D collision) {
             GameObject obj = collision.gameObject;
-            //Debug.LogFormat("[Player] Player collided with {0} (tagged \"{1}\")", obj.name, obj.tag);
+            //Debug.LogFormat("[Player] Collided with {0} (tagged \"{1}\")", obj.name, obj.tag);
             switch (obj.tag) {
                 case "Enemy":
                     p.TakeDamage(FindObjectOfType<PizzaMonster>().touchAttack);
+                    break;
+                case "xboxRayShot":
+                    p.TakeDamage(Xbox360.RAY_ATTACK);
                     break;
                 case "Weapon":
                     p.PickUpWeapon(obj);

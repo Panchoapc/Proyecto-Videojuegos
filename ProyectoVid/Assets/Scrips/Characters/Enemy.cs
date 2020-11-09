@@ -10,7 +10,7 @@ public abstract class Enemy : Character {
     public static readonly int NIGHTMARE_SANITY = 50; // nivel de sanidad por debajo del cual el enemigo entra en modo pesadilla
     public int touchAttack { get; protected set; } // daño que hace al tocar al jugador (por colisión)
     public int health { get; protected set; } // resistencia al daño
-    private Vector3 moveDir;
+    protected Vector3 moveDir;
     protected Transform playerTransform;
 
     protected virtual void Start() {
@@ -28,8 +28,8 @@ public abstract class Enemy : Character {
         // recibiendo daño si choca con un hitbox de un ataque del jugador
         Debug.LogFormat("[Enemy] Triggered with collider named \"{0}\" and tagged \"{1}\"", collider.name, collider.tag);
         if (collider.name.Contains("LightRay")) {
-            this.health -= LightRay.DAMAGE;
-            Debug.LogFormat("[Enemy] Got {0} damage from LightRay. Remaining health: {1}", LightRay.DAMAGE, this.health);
+            this.health -= RayGunShot.DAMAGE;
+            Debug.LogFormat("[Enemy] Got {0} damage from LightRay. Remaining health: {1}", RayGunShot.DAMAGE, this.health);
         }
         else {
             return; // evitar cálculo de derrota si es que no recibió daño en el trigger
