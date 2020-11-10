@@ -6,38 +6,44 @@ using UnityEngine.UI;
 
 public class ContextClues : MonoBehaviour
 {
+    public GameObject Palta;
     private bool inRange;
+    private bool notOpened = true;
     [Range(0f, 2f)]
     public float duration = 1f;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.F) && inRange)
         {
-            //Debug.Log("F PRESSED");
-            Freeze();
+            Debug.Log("F PRESSED");
+            Instantiate(Palta, this.transform.position, Quaternion.identity);
+            GetComponent<ContextClue>().Disable();
+            inRange = false;
+            notOpened = false;
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (notOpened)
         {
-            collision.GetComponent<ContextClue>().Enable();
             inRange = true;
+            if (collision.CompareTag("Player") && inRange)
+            {
+                collision.GetComponent<ContextClue>().Enable();
+            }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (notOpened)
         {
-            collision.GetComponent<ContextClue>().Disable();
             inRange = false;
+            if (collision.CompareTag("Player") && !inRange)
+            {
+                collision.GetComponent<ContextClue>().Disable();
+            }
         }
-    }
-
-    void Freeze()
-    {
-        Debug.Log("FREEZE");
     }
 }

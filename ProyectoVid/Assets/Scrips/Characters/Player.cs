@@ -9,6 +9,10 @@ public class Player : Character {
     public static readonly int MAX_SANITY = 100;
     public static readonly float MOVE_SPEED = 7;
     
+    AudioSource audiosourceCollision;
+    public AudioSource raygunSound;
+    public AudioSource swordSound;
+
     public int lives { get; private set; } // cantidad de intentos ϵ [0, MAX_LIVES]
     public int mentalSanity { get; private set; } // vida (sanidad mental) ϵ [0, MAX_SANITY]
     private string weapon; // nombre del arma equipada. Inicia null (desarmado).
@@ -154,11 +158,14 @@ public class Player : Character {
                 return;
             }
             Debug.LogFormat("[Player] Player attacked with weapon {0}", p.weapon);
+            
             switch (p.weapon) {
                 case "RayGun":
+                    p.raygunSound.Play();
                     FindObjectOfType<Factory>().SpawnRayGunShot();
                     break;
                 case "ShockSword":
+                    p.swordSound.Play();
                     p.swordCombatHandler.SwordAttack();
                     p.spriteRenderer.sprite = p.spriteSwordAttack;
                     p.Invoke(nameof(p.SwordRestoreSprite), p.swordAttackSpriteDuration);

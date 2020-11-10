@@ -6,7 +6,7 @@ using UnityEngine;
 /// La palta que recupera sanidad.
 /// </summary>
 public class Avocado : MonoBehaviour {
-    private static readonly int HEALING_POINTS = 30;
+    public static readonly int HEALING_POINTS = 30;
 
     private void OnTriggerEnter2D(Collider2D collider) {
         if (collider.tag == "Player") {

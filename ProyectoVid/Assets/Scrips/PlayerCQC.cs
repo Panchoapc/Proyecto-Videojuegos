@@ -8,6 +8,10 @@ using UnityEngine;
 /// Sistmea de combate para espada del jugador.
 /// </summary>
 public class PlayerCQC : MonoBehaviour {
+
+    AudioSource audiosourceCollision;
+    public AudioSource hitSound;
+
     public static readonly int SWORD_ATTACK = 45;
     [SerializeField] private Transform hitBoxPosition;
     [SerializeField] private float hitBoxRange = 0.5f;
@@ -31,6 +35,7 @@ public class PlayerCQC : MonoBehaviour {
         ) {
             Debug.LogFormat("[PlayerCQC] Attack reached {0}", hitEnemy.name);
             hitEnemy.GetComponent<Enemy>().TakeDamage(SWORD_ATTACK);
+            //hitSound.Play();
         }
     }
 }
