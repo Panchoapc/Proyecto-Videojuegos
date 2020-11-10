@@ -13,11 +13,10 @@ public class ContextClues : MonoBehaviour
     public float duration = 1f;
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F) && inRange)
+        if (Input.GetKeyDown(KeyCode.F) && inRange && notOpened)
         {
             Debug.Log("F PRESSED");
             Instantiate(Palta, this.transform.position, Quaternion.identity);
-            GetComponent<ContextClue>().Disable();
             inRange = false;
             notOpened = false;
         }
@@ -25,25 +24,21 @@ public class ContextClues : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (notOpened)
+
+        inRange = true;
+        if (collision.CompareTag("Player") && inRange)
         {
-            inRange = true;
-            if (collision.CompareTag("Player") && inRange)
-            {
-                collision.GetComponent<ContextClue>().Enable();
-            }
+            collision.GetComponent<ContextClue>().Enable();
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (notOpened)
+
+        inRange = false;
+        if (collision.CompareTag("Player") && !inRange)
         {
-            inRange = false;
-            if (collision.CompareTag("Player") && !inRange)
-            {
-                collision.GetComponent<ContextClue>().Disable();
-            }
+            collision.GetComponent<ContextClue>().Disable();
         }
     }
 }
