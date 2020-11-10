@@ -37,10 +37,21 @@ public class Player : Character {
         this.lives = MAX_LIVES;
     }
     
-    private void Update() {
+    private void FixedUpdate() {
         InputController.Process(this);
+        tentaclesCheck();       // checkea nivel de sanidad para hacer aparecer o desaparecer tentaculos
     }
-
+    void tentaclesCheck()
+    {
+        if (mentalSanity < 40)
+        {
+            FindObjectOfType<Tentacles>().showTentacles();
+        }
+        else
+        {
+            FindObjectOfType<Tentacles>().hideTentacles();
+        }
+    }
     private void OnCollisionEnter2D(Collision2D collision) {
         PhysicsController.HandleCollision(this, collision);
     }
