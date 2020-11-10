@@ -28,6 +28,7 @@ public class Player : Character {
     [SerializeField] private Sprite spriteSwordAttack;
     [SerializeField] private float swordAttackSpriteDuration = 0.3f; // duración del sprite de atacar con la espada
 
+    private Tentacles tentaclesUI;
     [SerializeField] public PlayerCQC swordCombatHandler;
 
     private void Start() {
@@ -36,25 +37,32 @@ public class Player : Character {
         this.sanityBar.setSanity(MAX_SANITY);
         this.startingPos = this.transform.position;
         this.lives = MAX_LIVES;
+        this.tentaclesUI = FindObjectOfType<Tentacles>();
     }
     
     private void FixedUpdate() {
-        InputController.Process(this);
-        tentaclesCheck();       // checkea nivel de sanidad para hacer aparecer o desaparecer tentaculos
+        tentaclesCheck(); // checkea nivel de sanidad para hacer aparecer o desaparecer tentaculos
     }
+
+    private void Update() {
+        InputController.Process(this);
+    }
+
     void tentaclesCheck()
     {
-        if (mentalSanity < 40)
-        {
-            FindObjectOfType<Tentacles>().showTentacles();
+        if (mentalSanity < 40) {
+            this.tentaclesUI.showTentacles();
         }
-        else
-        {
-            FindObjectOfType<Tentacles>().hideTentacles();
+        else {
+            this.tentaclesUI.hideTentacles();
         }
     }
     private void OnCollisionEnter2D(Collision2D collision) {
         PhysicsController.HandleCollision(this, collision);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        PhysicsController.HandleTrigger(this, collision);
     }
 
     /// <summary>
@@ -147,7 +155,7 @@ public class Player : Character {
                 case "Enemy":
                     p.TakeDamage(collision.gameObject.GetComponent<Enemy>().touchAttack);
                     break;
-                case "xboxRayShot":
+                case "XboxRayShot":
                     p.TakeDamage(Xbox360.RAY_ATTACK);
                     break;
                 case "Weapon":
@@ -159,8 +167,10 @@ public class Player : Character {
             }
         }
         public static void HandleTrigger(Player p, Collider2D collision) {
-            // TODO: recibir daño de triggers e.g. el rayo de la Xbox
-            throw new NotImplementedException();
+            if (collision.gameObject.name.Contains("XboxRayShot")) {
+                Debug.LogFormat("[Player] Hit by XboxRayShot!");
+                p.TakeDamage(Xbox360.RAY_ATTACK);
+            }
         }
     }
 

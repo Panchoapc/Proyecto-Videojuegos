@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class PizzaMonster : Enemy {
-    public static readonly float MOVE_SPEED = 3f;
+    public static readonly float MOVE_SPEED = 3;
     public static readonly int BITE_ATTACK = 30;
     public static readonly int MAX_HEALTH = 200;
 

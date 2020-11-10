@@ -10,7 +10,7 @@ public abstract class Enemy : Character {
     protected Vector3 moveDir;
     protected Transform playerTransform;
 
-    AudioSource audiosourceCollision;
+    //public AudioSource audiosourceCollision;
     public AudioSource hitSound;
 
     protected virtual void Start() {
@@ -54,7 +54,7 @@ public abstract class Enemy : Character {
     public void TakeDamage(int dmg) {
         this.health = System.Math.Max(this.health - dmg, 0);
         Debug.LogFormat("[Enemy] Took {0} damage, {1} remaining", dmg, this.health);
-        hitSound.Play();
+        if (hitSound != null) hitSound.Play();
         if (this.health <= 0) {
             Debug.LogFormat("[Enemy] Defeated!");
             Destroy(this.gameObject);
