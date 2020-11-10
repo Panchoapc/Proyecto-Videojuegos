@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class XboxRayShot : MonoBehaviour {
     public static readonly float LIFESPAN_SECONDS = 1; // segundos que dura antes de desaparecer cada rayo
-    [SerializeField] private float moveSpeed = 15;
+    public static readonly float MOVE_SLPEED = 12;
 
     // definiendo desfase en los ejes con respecto a la posición de la Xbox
     [SerializeField] private float spawnOffsetX = 2.8f; // 0.64f (pivot)
@@ -26,7 +26,7 @@ public class XboxRayShot : MonoBehaviour {
     }
 
     private void Update() {
-        this.transform.position += this.moveDir * this.moveSpeed * Time.deltaTime;
+        this.transform.position += this.moveDir * MOVE_SLPEED * Time.deltaTime;
     }
 
     /// <summary>
