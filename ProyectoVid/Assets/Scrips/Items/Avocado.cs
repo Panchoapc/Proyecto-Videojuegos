@@ -11,7 +11,7 @@ public class Avocado : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collider) {
         if (collider.tag == "Player") {
             Player p = FindObjectOfType<Player>();
-            if (p.mentalSanity == 100) {
+            if (p.mentalSanity == Player.MAX_SANITY) {
                 Debug.LogFormat("[Avocado] Player health is full!");
                 return;
             }

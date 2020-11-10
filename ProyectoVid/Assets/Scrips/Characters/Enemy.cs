@@ -24,7 +24,7 @@ public abstract class Enemy : Character {
     protected virtual void OnTriggerEnter2D(Collider2D collider) {
         // recibiendo daño si choca con un hitbox de un ataque del jugador
         Debug.LogFormat("[Enemy] Triggered with collider named \"{0}\" and tagged \"{1}\"", collider.name, collider.tag);
-        if (collider.name.Contains("LightRay")) {
+        if (collider.name.Contains("RayGunShot")) {
             this.health -= RayGunShot.DAMAGE;
             Debug.LogFormat("[Enemy] Got {0} damage from LightRay. Remaining health: {1}", RayGunShot.DAMAGE, this.health);
         }
