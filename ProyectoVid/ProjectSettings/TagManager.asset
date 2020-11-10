@@ -12,6 +12,7 @@ TagManager:
   - RaySlot
   - PuzzleObstacle
   - xboxRayShot
+  - PuzzleDoor
   layers:
   - Default
   - TransparentFX

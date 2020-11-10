@@ -24,11 +24,13 @@ public class ContextClues : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
-        inRange = true;
-        if (collision.CompareTag("Player") && inRange)
+        if (notOpened)
         {
-            collision.GetComponent<ContextClue>().Enable();
+            inRange = true;
+            if (collision.CompareTag("Player") && inRange)
+            {
+                collision.GetComponent<ContextClue>().Enable();
+            }
         }
     }
 

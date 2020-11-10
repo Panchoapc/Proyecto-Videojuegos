@@ -12,6 +12,7 @@ public class Player : Character {
     AudioSource audiosourceCollision;
     public AudioSource raygunSound;
     public AudioSource swordSound;
+    public AudioSource eatSound;
 
     public int lives { get; private set; } // cantidad de intentos ϵ [0, MAX_LIVES]
     public int mentalSanity { get; private set; } // vida (sanidad mental) ϵ [0, MAX_SANITY]
@@ -90,6 +91,7 @@ public class Player : Character {
     /// Curación.
     /// </summary>
     public void Heal(int dmg) {
+        eatSound.Play();
         this.mentalSanity = System.Math.Min(this.mentalSanity + dmg, MAX_SANITY); // asegurando que nunca queda con más del máximo de vida
         Debug.LogFormat("[Player] Healed {0}, {1} remaining", dmg, this.mentalSanity);
         this.sanityBar.setSanity(mentalSanity);

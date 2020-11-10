@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 88533079815160494}
   - component: {fileID: 88533079815160493}
   - component: {fileID: 88533079815160492}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Barrel Big
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 88533079815160491}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: -5.23, z: 0}
+  m_LocalPosition: {x: -1, y: -5.23, z: 1}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -69,8 +69,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -7731179
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -5842849781997936716, guid: 029030ab7555c8c4e95178103a2328f6,
     type: 3}
