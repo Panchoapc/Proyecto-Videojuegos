@@ -11,14 +11,14 @@ public class RaySlotPuzzle : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collider) {
         Debug.LogFormat("[RaySlotPuzzle] Triggered by collision named {0}", collider.gameObject.name);
-        if (collider.gameObject.name.Contains("LightRay")) {
+        if (collider.gameObject.name.Contains("RayGunShot")) {
             this.UnlockExit();
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collider) {
         Debug.LogFormat("[RaySlotPuzzle] Collided with {0}", collider.name);
-        if (collider.name.Contains("LightRay")) {
+        if (collider.name.Contains("RayGunShot")) {
             this.UnlockExit();
         }
     }

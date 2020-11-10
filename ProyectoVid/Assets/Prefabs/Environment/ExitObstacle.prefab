@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 667298560351164841}
-  - component: {fileID: 667298560351164840}
   - component: {fileID: 667298560351164844}
+  - component: {fileID: 667298560351164840}
   - component: {fileID: 667298560351164847}
   - component: {fileID: 667298560351164846}
   m_Layer: 0
@@ -29,11 +29,23 @@ Transform:
   m_GameObject: {fileID: 667298560351164843}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -64.9, y: 17, z: 0}
-  m_LocalScale: {x: 27.425148, y: 10.706024, z: 10}
+  m_LocalScale: {x: 3, y: 1, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &667298560351164844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 667298560351164843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 350818dc073672a4a93b60c7a5c4ae06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &667298560351164840
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -73,8 +85,9 @@ SpriteRenderer:
   m_SortingLayerID: -7731179
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 0.7728471, b: 0.023584902, a: 1}
+  m_Sprite: {fileID: 1080376308590110095, guid: 029030ab7555c8c4e95178103a2328f6,
+    type: 3}
+  m_Color: {r: 0.98324263, g: 0.990566, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -84,18 +97,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &667298560351164844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 667298560351164843}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 350818dc073672a4a93b60c7a5c4ae06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &667298560351164847
 Rigidbody2D:
   serializedVersion: 4
@@ -130,16 +131,16 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0064913034, y: 0.002782166}
   m_SpriteTilingProperty:
-    border: {x: 0.049999997, y: 0.049999997, z: 0.049999997, w: 0.049999997}
+    border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.16, y: 0.16}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 1.0706351, y: 1.1114372}
   m_EdgeRadius: 0
