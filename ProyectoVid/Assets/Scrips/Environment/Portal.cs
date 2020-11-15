@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Portal : MonoBehaviour {
     private static readonly int COOLDOWN_SECONDS = 3; // para que no entre en bucle teletransportándose de un portal al otro siempre
@@ -17,7 +15,7 @@ public class Portal : MonoBehaviour {
                     FindObjectOfType<Player>().transform.position = p.transform.position;
                     COOLDOWN_ACTIVE = true;
                     this.GetComponent<Renderer>().material.color = Color.gray;
-                    Invoke("Reactivate", COOLDOWN_SECONDS);
+                    Invoke(nameof(this.Reactivate), COOLDOWN_SECONDS);
                     return;
                 }
             }

@@ -4,7 +4,7 @@
 /// La cámara sigue a `target` de forma suave.
 /// </summary>
 public class CameraFollow : MonoBehaviour {
-    private Transform target; // lo que la cámara sigue
+    private Transform target = null; // lo que la cámara sigue
     [SerializeField] private float smoothSpeed = 0.15f; // ajusta al nivel de suevidad de seguimiento. Defecto: 0.2f
     private Vector2 velocity; // auxiliar
 

@@ -1,13 +1,10 @@
-commit.bat
-commit_*.txt
-
-/[Ll]ibrary/
-/[Tt]emp/
-/[Oo]bj/
-/[Bb]uild/
-/[Bb]uilds/
-/[Ll]ogs/
-/[Mm]emoryCaptures/
+ProyectoVid/[Ll]ibrary/
+ProyectoVid/[Tt]emp/
+ProyectoVid/[Oo]bj/
+ProyectoVid/[Bb]uild/
+ProyectoVid/[Bb]uilds/
+ProyectoVid/[Ll]ogs/
+ProyectoVid/[Mm]emoryCaptures/
 
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta
@@ -81,4 +78,3 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-ProyectoVid/Temp/UnityLockfile

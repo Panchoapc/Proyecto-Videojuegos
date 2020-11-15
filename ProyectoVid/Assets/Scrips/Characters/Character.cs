@@ -18,7 +18,7 @@ public abstract class Character : MonoBehaviour {
     /// Voltea el sprite de acuerdo al movimiento horizontal.
     /// Para que funcione, al inicio del juego debe estar mirando hacia la derecha.
     /// </summary>
-    protected void FlipOnMovementX(float xMove) {
+    public void FlipOnMovementX(float xMove) {
         if (xMove > 0 && !isFacingRight || xMove < 0 && isFacingRight) {
             isFacingRight = !isFacingRight;
             this.FlipSprite();

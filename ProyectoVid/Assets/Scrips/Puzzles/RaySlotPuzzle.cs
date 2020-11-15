@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// Ranura que se activa cuando se le dispara con la pistola de rayos.

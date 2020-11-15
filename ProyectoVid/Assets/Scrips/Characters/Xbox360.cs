@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using UnityEngine;
-using UnityEngine.UIElements;
+﻿using UnityEngine;
 
 public class Xbox360 : Enemy {
     public static readonly float MOVE_SPEED = 3.2f; // velocidad base de movimiento
@@ -15,10 +10,10 @@ public class Xbox360 : Enemy {
     public static readonly float DODGE_TIME = 1; // segundos por los que se mantiene esquivando
     public static readonly float DODGE_COOLDOWN = 4; // intervalo de tiempo (segundos) mínimo entre movimientos de esquivar
 
-    [SerializeField] private Animator animator;
+    [SerializeField] private Animator animator = null;
     private bool isInNightmareMode = false;
     private bool rayAvailable = true; // para el cooldown del rayo
-    private Player player;
+    private Player player = null;
 
     private bool isDodging = false;
     private bool dodgeAvailable = true;
@@ -30,7 +25,7 @@ public class Xbox360 : Enemy {
         this.player = FindObjectOfType<Player>();
         this.playerTransform = player.transform;
     }
-    
+
     protected override void Update() {
         if (this.isDodging) {
             this.Move(this.moveDir, DODGE_SPEED);
@@ -55,7 +50,7 @@ public class Xbox360 : Enemy {
         Debug.LogFormat("[Xbox360] Dodging...");
         Vector3 targetDir = (target.position - this.transform.position).normalized;
         float rotationDir = UnityEngine.Random.value < 0.5f ? 1 : -1;
-        Vector3 dodgeDir = Quaternion.AngleAxis(90*rotationDir, targetDir).eulerAngles.normalized;
+        Vector3 dodgeDir = Quaternion.AngleAxis(90 * rotationDir, targetDir).eulerAngles.normalized;
         this.moveDir = dodgeDir;
         this.isDodging = true;
         this.dodgeAvailable = false;

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class PizzaMonster : Enemy {
     public static readonly float MOVE_SPEED = 3;

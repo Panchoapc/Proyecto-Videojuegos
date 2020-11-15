@@ -8,13 +8,12 @@ public abstract class Enemy : Character {
     public int touchAttack { get; protected set; } // daño que hace al tocar al jugador (por colisión)
     public int health { get; protected set; } // resistencia al daño
     protected Vector3 moveDir;
-    protected Transform playerTransform;
+    protected Transform playerTransform = null;
 
-    //public AudioSource audiosourceCollision;
-    public AudioSource hitSound;
+    [SerializeField] private AudioSource hitSound = null;
 
     protected virtual void Start() {
-        this.playerTransform = FindObjectOfType<Player>().transform;
+        this.playerTransform = GameObject.FindObjectOfType<Player>().transform;
     }
 
     protected virtual void Update() {

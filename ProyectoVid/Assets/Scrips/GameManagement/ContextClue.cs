@@ -1,18 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class ContextClue : MonoBehaviour
-{
+public class ContextClue : MonoBehaviour {
     public GameObject contextClue;
 
-    public void Enable()
-    {
+    public void Enable() {
         contextClue.SetActive(true);
     }
 
-    public void Disable()
-    {
+    public void Disable() {
         contextClue.SetActive(false);
     }
 }

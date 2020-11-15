@@ -47,3 +47,5 @@ MonoBehaviour:
     type: 3}
   xboxRayShotPrefab: {fileID: 1061657318739617209, guid: c731ae5fc3c2db540bdfdb72923e6da2,
     type: 3}
+  avocadoPrefab: {fileID: 2461150783029482263, guid: 0fe840efc4d81fd41891aa1fafd76c04,
+    type: 3}

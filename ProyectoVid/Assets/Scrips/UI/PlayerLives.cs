@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
 public class PlayerLives : MonoBehaviour {
-    [SerializeField] private GameObject heart1;
-    [SerializeField] private GameObject heart2;
-    [SerializeField] private GameObject heart3;
+    [SerializeField] private GameObject heart1 = null;
+    [SerializeField] private GameObject heart2 = null;
+    [SerializeField] private GameObject heart3 = null;
 
     /// <summary>
     /// Muestra `livesCount` corazones que representan las vidas.

@@ -1,14 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class Insanity : MonoBehaviour
-{
-    public Slider slider;
-    
-    public void setSanity(int sanity)
-    {
+public class Insanity : MonoBehaviour {
+    public Slider slider = null;
+
+    public void SetSanity(int sanity) {
         slider.value = sanity;
     }
 }
