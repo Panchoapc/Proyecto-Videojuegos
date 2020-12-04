@@ -13,7 +13,7 @@ public class Dorito : MonoBehaviour
             Player p = FindObjectOfType<Player>();
             if (p.mentalSanity == Player.MAX_SANITY)
             {
-                Debug.LogFormat("[Avocado] Player health is full!");
+                Debug.LogFormat("[Dorito] Player health is full!");
                 return;
             }
             p.Heal(HP);
