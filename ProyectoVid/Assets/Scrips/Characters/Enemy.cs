@@ -27,8 +27,8 @@ public abstract class Enemy : Character {
         // recibiendo daño si choca con un hitbox de un ataque del jugador
         Debug.LogFormat("[Enemy] Triggered with collider named \"{0}\" and tagged \"{1}\"", collider.name, collider.tag);
         if (collider.name.Contains("RayGunShot")) {
-            this.health -= RayGunShot.DAMAGE;
-            Debug.LogFormat("[Enemy] Got {0} damage from LightRay. Remaining health: {1}", RayGunShot.DAMAGE, this.health);
+            this.health -= PlayerGunCombat.RAYGUN_SHOT_ATTACK;
+            Debug.LogFormat("[Enemy] Got {0} damage from LightRay. Remaining health: {1}", PlayerGunCombat.RAYGUN_SHOT_ATTACK, this.health);
         }
         else {
             return; // evitar cálculo de derrota si es que no recibió daño en el trigger

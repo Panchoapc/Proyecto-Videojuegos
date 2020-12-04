@@ -6,14 +6,15 @@ public class Xbox360 : Enemy {
     public static readonly int RAY_ATTACK = 10; // ataque por rayo
     public static readonly int MAX_HEALTH = 150;
     public static readonly float RAY_ATTACK_COOLDOWN = 2; // segundos que hay entre disparos de rayos láser
-    public static readonly float DODGE_SPEED = 6; // velocidad a la que realiza el patrón de movimiento de esquivar
-    public static readonly float DODGE_TIME = 1; // segundos por los que se mantiene esquivando
-    public static readonly float DODGE_COOLDOWN = 4; // intervalo de tiempo (segundos) mínimo entre movimientos de esquivar
+    public static readonly float DODGE_SPEED = 7; // velocidad a la que realiza el patrón de movimiento de esquivar
+    public static readonly float DODGE_TIME = 0.8f; // segundos por los que se mantiene esquivando
+    public static readonly float DODGE_COOLDOWN = 3; // intervalo de tiempo (segundos) mínimo entre movimientos de esquivar
 
     [SerializeField] private Animator animator = null;
     private bool isInNightmareMode = false;
     private bool rayAvailable = true; // para el cooldown del rayo
     private Player player = null;
+    private Factory factory = null;
 
     private bool isDodging = false;
     private bool dodgeAvailable = true;
@@ -24,6 +25,7 @@ public class Xbox360 : Enemy {
         this.health = MAX_HEALTH;
         this.player = FindObjectOfType<Player>();
         this.playerTransform = player.transform;
+        this.factory = FindObjectOfType<Factory>();
     }
 
     protected override void Update() {
@@ -86,7 +88,7 @@ public class Xbox360 : Enemy {
     }
 
     private void CreateOneRay() {
-        FindObjectOfType<Factory>().SpawnXboxRayShot();
+        this.factory.SpawnXboxRayShot();
     }
 
     /// <summary>

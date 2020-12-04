@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Player : Character {
     public static readonly int MAX_LIVES = 3;
@@ -25,6 +26,7 @@ public class Player : Character {
 
     private Tentacles tentaclesUI = null;
     [SerializeField] public PlayerCQC swordCombatHandler = null;
+    [SerializeField] public PlayerGunCombat gunCombatHandler = null;
 
     private void Start() {
         this.moveSpeed = MOVE_SPEED;
@@ -69,7 +71,7 @@ public class Player : Character {
 
         if (this.lives <= 0) { // GAME OVER
             Debug.LogFormat("[Player] Out of lives!");
-            FindObjectOfType<GameManager>().LooseGame();
+            GameManager.LooseGame();
             return;
         }
         this.transform.position = this.startingPos;
@@ -94,7 +96,7 @@ public class Player : Character {
     /// Curación.
     /// </summary>
     public void Heal(int dmg) {
-        eatSound.Play();
+        this.eatSound.Play();
         this.mentalSanity = System.Math.Min(this.mentalSanity + dmg, MAX_SANITY); // asegurando que nunca queda con más del máximo de vida
         Debug.LogFormat("[Player] Healed {0}, {1} remaining", dmg, this.mentalSanity);
         this.sanityBar.SetSanity(mentalSanity);

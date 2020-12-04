@@ -2,8 +2,8 @@
 using UnityEngine;
 
 public class PizzaMonster : Enemy {
-    public static readonly float MOVE_SPEED = 3;
-    public static readonly int BITE_ATTACK = 30;
+    public static readonly float MOVE_SPEED = 4;
+    public static readonly int BITE_ATTACK = 30; // ataque por contacto
     public static readonly int MAX_HEALTH = 200;
 
     private bool isInNightmareMode = false;

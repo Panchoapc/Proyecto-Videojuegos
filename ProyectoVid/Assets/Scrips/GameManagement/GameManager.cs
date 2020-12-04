@@ -1,18 +1,18 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour {
+public static class GameManager {
     /// <summary>
     /// GAME OVER.
     /// </summary>
-    public void LooseGame() {
+    public static void LooseGame() {
         SceneManager.LoadScene("LooseGameMenu", LoadSceneMode.Single);
     }
 
     /// <summary>
     /// El jugador gana.
     /// </summary>
-    public void WinGame() {
+    public static void WinGame() {
         SceneManager.LoadScene("WinGameMenu", LoadSceneMode.Single);
     }
 }

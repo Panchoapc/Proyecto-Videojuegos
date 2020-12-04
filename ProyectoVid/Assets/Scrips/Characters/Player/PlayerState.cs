@@ -3,22 +3,37 @@
 public static class PlayerState { // AKA StateController
     public static void Attack(Player p) {
         if (p.weapon == null) {
-            Debug.LogFormat("[Player] Cannot attack without a weapon!");
+            Debug.LogFormat("[PlayerState] Cannot attack without a weapon!");
             return;
         }
-        Debug.LogFormat("[Player] Player attacked with weapon {0}", p.weapon);
+        Debug.LogFormat("[PlayerState] Player attacked with weapon {0}", p.weapon);
 
         switch (p.weapon) {
             case "RayGun":
-                p.raygunSound.Play();
-                GameObject.FindObjectOfType<Factory>().SpawnRayGunShot();
+                PlayerState.RayGunAttack(p);
                 break;
             case "ShockSword":
-                p.swordSound.Play();
-                p.swordCombatHandler.SwordAttack();
-                p.spriteRenderer.sprite = p.spriteSwordAttack;
-                p.Invoke(nameof(p.SwordRestoreSprite), p.swordAttackSpriteDuration);
+                PlayerState.SwordAttack(p);
                 break;
+        }
+    }
+
+    private static void RayGunAttack(Player p) {
+        if (p.gunCombatHandler.RayGunAttack()) {
+            p.raygunSound.Play();
+            GameObject.FindObjectOfType<Factory>().SpawnRayGunShot();
+        } else {
+            Debug.LogFormat("[PlayerState] Cannot attack due cooldown.");
+        }
+    }
+
+    private static void SwordAttack(Player p) {
+        if (p.swordCombatHandler.SwordAttack()) {
+            p.swordSound.Play();
+            p.spriteRenderer.sprite = p.spriteSwordAttack; // TODO: reemplazar por animación
+            p.Invoke(nameof(p.SwordRestoreSprite), p.swordAttackSpriteDuration);
+        } else {
+            Debug.LogFormat("[PlayerState] Cannot attack due cooldown.");
         }
     }
 }

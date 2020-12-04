@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public static class PlayerInput { // AKA InputController
     public static void Process(Player p) {

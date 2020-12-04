@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
 public class Factory : MonoBehaviour {
-    [SerializeField] private GameObject rayGunShotPrefab = null; // tipo `LightRay`, rayo láser del arma de rayos
+    [SerializeField] private GameObject rayGunShotPrefab = null; // rayo láser del arma de rayos
     [SerializeField] private GameObject xboxRayShotPrefab = null; // rayo láser de la Xbox
     [SerializeField] private GameObject avocadoPrefab = null;
 
     /// <summary>
-    /// Instancia un disparo de la pistola de rayos.
+    /// Instancia un disparo de la pistola de rayos del jugador.
     /// </summary>
     public void SpawnRayGunShot() {
         Instantiate(this.rayGunShotPrefab);
@@ -22,7 +22,7 @@ public class Factory : MonoBehaviour {
     /// <summary>
     /// Instancia la palta en `position`.
     /// </summary>
-    public void SpawnAvocado(Vector3 position) {
+    public void SpawnAvocado(Vector2 position) {
         Instantiate(this.avocadoPrefab, position, Quaternion.identity);
     }
 }

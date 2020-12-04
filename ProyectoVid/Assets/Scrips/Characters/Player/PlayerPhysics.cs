@@ -20,7 +20,7 @@ public static class PlayerPhysics { // AKA PhysicsController
                 p.PickUpWeapon(obj);
                 break;
             case "door":
-                GameObject.FindObjectOfType<GameManager>().WinGame();
+                GameManager.WinGame();
                 break;
         }
     }

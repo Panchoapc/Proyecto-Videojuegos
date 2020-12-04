@@ -4,7 +4,6 @@
 /// Lo que dispara la pistola de rayos (RayGun).
 /// </summary>
 public class RayGunShot : MonoBehaviour {
-    public static readonly int DAMAGE = 30; // daño individual
     public static readonly float LIFESPAN_SECONDS = 1; // segundos que dura antes de desaparecer cada rayo
 
     [SerializeField] private float moveSpeed = 20;
