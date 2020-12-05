@@ -35,7 +35,7 @@ public class Xbox360 : Enemy {
         }
 
         this.FollowPlayer();
-        bool nightmareCondition = this.player.mentalSanity < Enemy.NIGHTMARE_SANITY;
+        bool nightmareCondition = this.player.mentalSanity < Player.NIGHTMARE_SANITY;
         if (this.isInNightmareMode) { // en el modo pesadilla, puede esquivar y tirar rayos
             if (this.dodgeAvailable && UnityEngine.Random.value < 0.2) this.DodgeMove(player.transform);
             if (this.rayAvailable) this.RayAttack();

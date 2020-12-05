@@ -4,6 +4,7 @@ using UnityEngine;
 public class Player : Character {
     public static readonly int MAX_LIVES = 3;
     public static readonly int MAX_SANITY = 100;
+    public static readonly int NIGHTMARE_SANITY = 50; // nivel de sanidad por debajo del cual el enemigo entra en modo pesadilla
     public static readonly float MOVE_SPEED = 7;
 
     public AudioSource raygunSound = null;
@@ -86,6 +87,9 @@ public class Player : Character {
     /// Toma daño y luego revisa si perdió una vida.
     /// </summary>
     public void TakeDamage(int dmg) {
+        if (PlayerCheats.GOD_MODE) return; // implementando cheat de invulnerabilidad
+
+        if (dmg <= 0) Debug.LogErrorFormat("[Player] Warning: player took negative or zero damage!");
         this.mentalSanity = System.Math.Max(this.mentalSanity - dmg, 0); // asugurando nunca una vida negativa, para no tener problemas.
         Debug.LogFormat("[Player] Took {0} damage, {1} remaining", dmg, this.mentalSanity);
         this.sanityBar.SetSanity(mentalSanity);
@@ -98,6 +102,7 @@ public class Player : Character {
     /// Curación.
     /// </summary>
     public void Heal(int dmg) {
+        if (dmg <= 0) Debug.LogErrorFormat("[Player] Warning: player healed negative or zero points!");
         this.eatSound.Play();
         this.mentalSanity = System.Math.Min(this.mentalSanity + dmg, MAX_SANITY); // asegurando que nunca queda con más del máximo de vida
         Debug.LogFormat("[Player] Healed {0}, {1} remaining", dmg, this.mentalSanity);

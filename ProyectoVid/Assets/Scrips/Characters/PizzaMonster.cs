@@ -18,7 +18,7 @@ public class PizzaMonster : Enemy {
     protected override void Update() {
         this.FollowPlayer();
         if (this.isInNightmareMode) return;
-        bool nightmareCondition = FindObjectOfType<Player>().mentalSanity < Enemy.NIGHTMARE_SANITY;
+        bool nightmareCondition = FindObjectOfType<Player>().mentalSanity < Player.NIGHTMARE_SANITY;
         if (nightmareCondition && !this.isInNightmareMode) this.EnterNightmareMode();
         else if (!nightmareCondition && this.isInNightmareMode) this.ExitNightmareMode();
     }

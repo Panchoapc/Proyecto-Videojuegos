@@ -6,6 +6,7 @@ using UnityEngine;
 /// Referencias: https://answers.unity.com/questions/553597/how-to-implement-cheat-codes.html
 /// </summary>
 public class PlayerCheats : MonoBehaviour {
+    public static bool GOD_MODE { get; private set; } = false;
     [SerializeField] private GameObject rayGunPrefab = null;
     [SerializeField] private GameObject swordPrefab = null;
     private Player player;
@@ -41,52 +42,67 @@ public class PlayerCheats : MonoBehaviour {
          */
         this.cheats = new GameCheat[] {
             new GameCheat(
-                "Invulnerability",
+                "Toggle invulnerability",
                 new KeyCode[] { KeyCode.S, KeyCode.T, KeyCode.R, KeyCode.O, KeyCode.N, KeyCode.G, KeyCode.M, KeyCode.I, KeyCode.N, KeyCode.D },
-                () => { }
+                () => {
+                    PlayerCheats.GOD_MODE = !PlayerCheats.GOD_MODE;
+                }
             ),
             new GameCheat(
                 "Full mental sanity",
                 new KeyCode[] { KeyCode.At, KeyCode.M, KeyCode.A, KeyCode.X, KeyCode.I, KeyCode.M, KeyCode.U, KeyCode.M },
-                () => { }
+                () => {
+                    this.player.Heal(Player.MAX_SANITY);
+                }
             ),
             new GameCheat(
                 "Enter nightmare mode",
                 new KeyCode[] { KeyCode.B, KeyCode.O, KeyCode.R, KeyCode.I, KeyCode.N, KeyCode.G },
-                () => { }
+                () => {
+                    if (player.mentalSanity > Player.NIGHTMARE_SANITY) { // sólo entra en modo pesadilla si no estaba antes en ese estado
+                        player.TakeDamage(player.mentalSanity - Player.NIGHTMARE_SANITY);
+                    }
+                }
             ),
             new GameCheat(
                 "Get RayGun",
                 new KeyCode[] { KeyCode.C, KeyCode.A, KeyCode.N, KeyCode.D, KeyCode.Y },
-                () => { this.player.PickUpWeapon(this.rayGunPrefab, false); }
+                () => {
+                    player.PickUpWeapon(rayGunPrefab, false);
+                }
             ),
             new GameCheat(
                 "Get ShockSword",
                 new KeyCode[] { KeyCode.S, KeyCode.T, KeyCode.I, KeyCode.C, KeyCode.K },
-                () => { this.player.PickUpWeapon(this.swordPrefab, false); }
+                () => {
+                    player.PickUpWeapon(swordPrefab, false);
+                }
             )
         };
-        this.cheatCodesIndex = new int[this.cheats.Length];
+        this.cheatCodesIndex = new int[cheats.Length];
         this.ClearCheatIndex();
     }
 
     private void Update() {
         if (Input.anyKeyDown) {
-            for (int k = 0; k < this.cheats.Length; k++) {
-                if ( Input.GetKey(this.cheats[k].code[this.cheatCodesIndex[k]]) ) { // revisando condición de cumplir con el código de algún truco
-                    if (this.cheatCodesIndex[k] == this.cheats[k].code.Length-1) { // viendo si llegó al final de un código
-                        this.cheats[k].Activate();
-                        this.ClearCheatIndex();
+            for (int k = 0; k < cheats.Length; k++) {
+                if ( Input.GetKey(cheats[k].code[cheatCodesIndex[k]]) ) { // revisando condición de cumplir con el código de algún truco
+                    if (cheatCodesIndex[k] == cheats[k].code.Length-1) { // viendo si llegó al final de un código
+                        cheats[k].Activate();
+                        ClearCheatIndex();
                         return;
                     }
-                    this.cheatCodesIndex[k]++;
+                    cheatCodesIndex[k]++;
                 } else {
-                    this.cheatCodesIndex[k] = 0;
+                    cheatCodesIndex[k] = 0;
                 }
             }
         }
     }
 
+    /// <summary>
+    /// Rellena `cheatCodesIndex` de ceros, reiniciando así el "progreso" de los códigos de todos los cheats.
+    /// </summary>
     private void ClearCheatIndex() {
         for (int n = 0; n < this.cheatCodesIndex.Length; n++) {
             this.cheatCodesIndex[n] = 0;

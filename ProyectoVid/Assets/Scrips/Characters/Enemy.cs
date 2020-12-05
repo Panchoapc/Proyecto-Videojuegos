@@ -4,7 +4,6 @@
 /// Clase base para enmigos NPC.
 /// </summary>
 public abstract class Enemy : Character {
-    public static readonly int NIGHTMARE_SANITY = 50; // nivel de sanidad por debajo del cual el enemigo entra en modo pesadilla
     public int touchAttack { get; protected set; } // daño que hace al tocar al jugador (por colisión)
     public int health { get; protected set; } // resistencia al daño
     protected Vector3 moveDir;
