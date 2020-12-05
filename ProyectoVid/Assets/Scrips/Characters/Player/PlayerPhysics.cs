@@ -17,7 +17,7 @@ public static class PlayerPhysics { // AKA PhysicsController
                 p.TakeDamage(Xbox360.RAY_ATTACK);
                 break;
             case "Weapon":
-                p.PickUpWeapon(obj);
+                p.PickUpWeapon(obj, true);
                 break;
             case "door":
                 GameManager.WinGame();

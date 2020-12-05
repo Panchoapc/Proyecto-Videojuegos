@@ -25,8 +25,8 @@ public class Player : Character {
     [SerializeField] public float swordAttackSpriteDuration = 0.3f; // duración del sprite de atacar con la espada
 
     private Tentacles tentaclesUI = null;
-    [SerializeField] public PlayerCQC swordCombatHandler = null;
-    [SerializeField] public PlayerGunCombat gunCombatHandler = null;
+    public PlayerCQC swordCombatHandler = null;
+    public PlayerGunCombat gunCombatHandler = null;
 
     private void Start() {
         this.moveSpeed = MOVE_SPEED;
@@ -35,6 +35,8 @@ public class Player : Character {
         this.startingPos = this.transform.position;
         this.lives = MAX_LIVES;
         this.tentaclesUI = GameObject.FindObjectOfType<Tentacles>();
+        this.swordCombatHandler = GameObject.FindObjectOfType<PlayerCQC>();
+        this.gunCombatHandler = GameObject.FindObjectOfType<PlayerGunCombat>();
     }
 
     private void FixedUpdate() {
@@ -102,7 +104,11 @@ public class Player : Character {
         this.sanityBar.SetSanity(mentalSanity);
     }
 
-    public void PickUpWeapon(GameObject gotWeapon) {
+    /// <summary>
+    /// Agarra el arma `gotWeapon`. Dependiendo de `destroyAfter`, destruye el GameObject del arma recogida.
+    /// Este valor solo será falso dentro de las cheats.
+    /// </summary>
+    public void PickUpWeapon(GameObject gotWeapon, bool destroyAfter) {
         //if (this.weapon != null) { // si ya tenía arma equipada, la respawnea donde estaba y la des-equipa
         //    Instantiate(this.weapon);
         //}
@@ -121,7 +127,7 @@ public class Player : Character {
                 Debug.LogErrorFormat("[Player] Error: unkown weapon name picked up (couldn't find sprite).");
                 break;
         }
-        Destroy(gotWeapon); // des-spawnea el arma recién recogida
+        if (destroyAfter) Destroy(gotWeapon.gameObject); // des-spawnea el arma recién recogida
     }
 
     /// <summary>
