@@ -6,10 +6,12 @@ public class PizzaMonster : Enemy {
     public static readonly int BITE_ATTACK = 30; // ataque por contacto
     public static readonly int MAX_HEALTH = 200;
 
+    private Animator animator = null;
     private bool isInNightmareMode = false;
 
     protected override void Start() {
         this.playerTransform = FindObjectOfType<Player>().transform;
+        this.animator = this.GetComponent<Animator>();
         this.moveSpeed = MOVE_SPEED;
         this.touchAttack = BITE_ATTACK;
         this.health = MAX_HEALTH;
@@ -23,12 +25,8 @@ public class PizzaMonster : Enemy {
         else if (!nightmareCondition && this.isInNightmareMode) this.ExitNightmareMode();
     }
 
-    /// <summary>
-    /// Pega una mascada al jugador.
-    /// </summary>
-    private void BitePlayer() {
-        // TODO: hacer daño y ejecutar animación de mordida
-        throw new NotImplementedException();
+    public override void OnPostTouchAttack() {
+        this.animator.SetTrigger("biteAttack"); // ejecutando animación de mordida cuando haga daño por colisión al jugador
     }
 
     protected override void EnterNightmareMode() {

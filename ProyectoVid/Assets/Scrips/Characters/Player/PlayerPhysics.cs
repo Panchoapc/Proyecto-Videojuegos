@@ -8,10 +8,11 @@ public static class PlayerPhysics { // AKA PhysicsController
 
     public static void HandleCollision(Player p, Collision2D collision) {
         GameObject obj = collision.gameObject;
-        //Debug.LogFormat("[Player] Collided with {0} (tagged \"{1}\")", obj.name, obj.tag);
         switch (obj.tag) {
             case "Enemy":
-                p.TakeDamage(collision.gameObject.GetComponent<Enemy>().touchAttack);
+                Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+                p.TakeDamage(enemy.touchAttack);
+                enemy.OnPostTouchAttack(); // ejecutando acción del enemigo inmediatamente posterior a ataque por colisión
                 break;
             case "XboxRayShot":
                 p.TakeDamage(Xbox360.RAY_ATTACK);

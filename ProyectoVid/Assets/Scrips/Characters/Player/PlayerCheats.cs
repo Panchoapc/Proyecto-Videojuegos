@@ -7,12 +7,16 @@ using UnityEngine;
 /// </summary>
 public class PlayerCheats : MonoBehaviour {
     public static bool GOD_MODE { get; private set; } = false;
+    private const float SUPER_MOVE_SPEED = 18;
     [SerializeField] private GameObject rayGunPrefab = null;
     [SerializeField] private GameObject swordPrefab = null;
     private Player player;
     private GameCheat[] cheats;
     private int[] cheatCodesIndex; // variable auxiliar para identificar códigos de cheats
 
+    /// <summary>
+    /// Representa una trampa activada por código ocultos.
+    /// </summary>
     private class GameCheat {
         private string name; // nombre de la trampa (no importante)
         public KeyCode[] code { get; private set; } // código que activa la trampa
@@ -39,6 +43,8 @@ public class PlayerCheats : MonoBehaviour {
          * BORING     | Bajar la sanidad lo suficiente como para entrar en modo pesadilla.
          * CANDY      | Obtener pistola de rayos (RayGun).
          * STICK      | Obtener espada (ShockSword).
+         * ATODOGAS   | Super velocidad del jugador.
+         * AEGIS      | Pasar al siguiente nivel.
          */
         this.cheats = new GameCheat[] {
             new GameCheat(
@@ -76,6 +82,20 @@ public class PlayerCheats : MonoBehaviour {
                 new KeyCode[] { KeyCode.S, KeyCode.T, KeyCode.I, KeyCode.C, KeyCode.K },
                 () => {
                     player.PickUpWeapon(swordPrefab, false);
+                }
+            ),
+            new GameCheat(
+                "Super movement speed",
+                new KeyCode[] { KeyCode.A, KeyCode.T, KeyCode.O, KeyCode.D, KeyCode.O, KeyCode.G, KeyCode.A, KeyCode.S },
+                () => {
+                    player.ChangeMoveSpeed(PlayerCheats.SUPER_MOVE_SPEED);
+                }
+            ),
+            new GameCheat(
+                "Jump to next level",
+                new KeyCode[] { KeyCode.A, KeyCode.E, KeyCode.G, KeyCode.I, KeyCode.S },
+                () => {
+                    // -------- PENDIENTE -------- //
                 }
             )
         };

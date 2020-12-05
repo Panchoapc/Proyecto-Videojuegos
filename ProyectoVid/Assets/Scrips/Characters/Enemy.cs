@@ -41,6 +41,12 @@ public abstract class Enemy : Character {
     }
 
     /// <summary>
+    /// Función que se va a ejecutar luego de calcularse la colisión con el jugador y dañarlo en `PlayerPhysics`.
+    /// Sirve por ejemplo para la animación de la pizza que ocurre al atacar.
+    /// </summary>
+    public virtual void OnPostTouchAttack() { }
+
+    /// <summary>
     /// Persigue al jugador.
     /// </summary>
     protected void FollowPlayer() {

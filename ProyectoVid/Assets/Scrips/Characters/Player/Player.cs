@@ -13,13 +13,13 @@ public class Player : Character {
 
     public int lives { get; private set; } // cantidad de intentos ϵ [0, MAX_LIVES]
     public int mentalSanity { get; private set; } // vida (sanidad mental) ϵ [0, MAX_SANITY]
-    public string weapon { get; private set; } // nombre del arma equipada. Inicia null (desarmado).
+    public string weapon { get; private set; } // nombre del arma equipada. Inicia nulo (desarmado).
     private Vector3 startingPos; // se guarda la posicion inicial para poder volver a esta en el caso de quedarse sin vida
     [SerializeField] private Insanity sanityBar = null;
     [SerializeField] private PlayerLives livesDisplay = null;
 
     [SerializeField] public SpriteRenderer spriteRenderer = null;
-    [SerializeField] private Sprite spriteDefaultIdle = null;
+    //[SerializeField] private Sprite spriteDefaultIdle = null;
     [SerializeField] private Sprite spriteRayGunIdle = null;
     [SerializeField] private Sprite spriteSwordIdle = null;
     [SerializeField] public Sprite spriteSwordAttack = null;
@@ -140,5 +140,9 @@ public class Player : Character {
     /// </summary>
     public void SwordRestoreSprite() {
         this.spriteRenderer.sprite = this.spriteSwordIdle;
+    }
+
+    public void ChangeMoveSpeed(float newSpeed) {
+        this.moveSpeed = newSpeed;
     }
 }
