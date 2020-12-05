@@ -37,6 +37,8 @@ public class Player : Character {
         this.tentaclesUI = GameObject.FindObjectOfType<Tentacles>();
         this.swordCombatHandler = GameObject.FindObjectOfType<PlayerCQC>();
         this.gunCombatHandler = GameObject.FindObjectOfType<PlayerGunCombat>();
+
+        Debug.LogFormat("Player.gunCombatHandler null? {0}", this.gunCombatHandler == null);
     }
 
     private void FixedUpdate() {
