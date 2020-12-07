@@ -95,7 +95,8 @@ public class PlayerCheats : MonoBehaviour {
                 "Jump to next level",
                 new KeyCode[] { KeyCode.A, KeyCode.E, KeyCode.G, KeyCode.I, KeyCode.S },
                 () => {
-                    // -------- PENDIENTE -------- //
+                    // TODO: impedir bug al llamarse en el segundo nivel.
+                    player.LoadNextLevel();
                 }
             )
         };

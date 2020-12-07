@@ -149,7 +149,11 @@ public class Player : Character {
         this.moveSpeed = newSpeed;
     }
 
-    public void ChangeScene() {
+    /// <summary>
+    /// Carga la siguiente escena. Sirve para invocar desde afuera (controlador de físicas) el cambio al
+    /// siguiente nivel luego de entrar en la puerta de salida del nivel 1.
+    /// </summary>
+    public void LoadNextLevel() {
         GameManager.NextScene();
     }
 }

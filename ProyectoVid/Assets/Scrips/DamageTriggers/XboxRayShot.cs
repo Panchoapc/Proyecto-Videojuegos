@@ -25,6 +25,7 @@ public class XboxRayShot : MonoBehaviour {
 
     private void Update() {
         if (GameManager.isPaused) return;
+
         this.transform.position += this.moveDir * MOVE_SLPEED * Time.deltaTime;
     }
 

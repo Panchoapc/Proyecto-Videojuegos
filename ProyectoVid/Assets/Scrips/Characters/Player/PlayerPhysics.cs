@@ -20,11 +20,10 @@ public static class PlayerPhysics { // AKA PhysicsController
             case "Weapon":
                 p.PickUpWeapon(obj, true);
                 break;
-            case "door":
-                //ACA PAUSAR 1.5 SEGUNDOS
+            case "door": // esperar 1.5 segundos para pasar al siguiente nivel para que se escuche completo el sonido de fin de nivel 1
                 p.winSound.Play();
                 GameManager.PauseGame();
-                p.Invoke(nameof(p.ChangeScene), 1.5f);
+                p.Invoke(nameof(p.LoadNextLevel), 1.5f);
                 break;
         }
     }
