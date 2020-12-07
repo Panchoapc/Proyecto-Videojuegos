@@ -86,7 +86,7 @@ public class Xbox360 : Enemy {
     }
 
     private void CreateOneRay() {
-        this.factory.SpawnXboxRayShot();
+        this.factory.SpawnXboxRayShot(this.transform.position);
     }
 
     /// <summary>
