@@ -16,6 +16,7 @@ public class RayGunShot : MonoBehaviour {
     }
 
     private void Update() {
+        if (GameManager.isPaused) return;
         this.transform.position += this.moveDirection * this.moveSpeed * Time.deltaTime;
     }
 

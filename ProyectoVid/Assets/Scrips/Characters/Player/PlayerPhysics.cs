@@ -22,7 +22,9 @@ public static class PlayerPhysics { // AKA PhysicsController
                 break;
             case "door":
                 //ACA PAUSAR 1.5 SEGUNDOS
-                GameManager.NextScene();
+                p.winSound.Play();
+                GameManager.PauseGame();
+                p.Invoke(nameof(p.ChangeScene), 1.5f);
                 break;
         }
     }

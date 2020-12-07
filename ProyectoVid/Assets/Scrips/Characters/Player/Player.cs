@@ -46,6 +46,7 @@ public class Player : Character {
     }
 
     private void Update() {
+        if (GameManager.isPaused) return;
         PlayerInput.Process(this);
     }
 
@@ -146,5 +147,9 @@ public class Player : Character {
 
     public void ChangeMoveSpeed(float newSpeed) {
         this.moveSpeed = newSpeed;
+    }
+
+    public void ChangeScene() {
+        GameManager.NextScene();
     }
 }

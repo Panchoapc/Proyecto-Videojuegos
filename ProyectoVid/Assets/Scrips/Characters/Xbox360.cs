@@ -29,6 +29,8 @@ public class Xbox360 : Enemy {
     }
 
     protected override void Update() {
+        if (GameManager.isPaused) return;
+
         if (this.isDodging) {
             this.Move(this.moveDir, DODGE_SPEED);
             return;
