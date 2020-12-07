@@ -13,18 +13,16 @@ public class XboxRayShot : MonoBehaviour {
     private Vector3 moveDir; // auxiliar
 
     private void Start() {
-        this.SetInitialPosition(FindObjectOfType<Xbox360>());
-        this.moveDir = (FindObjectOfType<Player>().transform.position - this.transform.position).normalized;
-
-        // TODO: rotar rayo de acuerdo a posición del jugador
-
-        //this.transform.Rotate(this.moveDir);
-        //this.transform.RotateAround((Vector2)this.moveDir, );
+        Xbox360 xbox = FindObjectOfType<Xbox360>();
+        Player player = FindObjectOfType<Player>();
+        this.SetStartPosition(xbox);
+        this.moveDir = (player.transform.position - this.transform.position).normalized;
+        this.SetStartRotation(xbox, player);
         Destroy(this.gameObject, LIFESPAN_SECONDS);
     }
 
     private void Update() {
-        if (GameManager.isPaused) return;
+        if (GameManager.isGamePaused) return;
 
         this.transform.position += this.moveDir * MOVE_SLPEED * Time.deltaTime;
     }
@@ -32,7 +30,7 @@ public class XboxRayShot : MonoBehaviour {
     /// <summary>
     /// Establece la posición de acuerdo a la de `shooter`, añadiendo el offset.
     /// </summary>
-    private void SetInitialPosition(Xbox360 shooter) {
+    private void SetStartPosition(Xbox360 shooter) {
         Vector3 aux = shooter.transform.position;
         if (shooter.isFacingRight) {
             aux.x += spawnOffsetX;
@@ -42,5 +40,14 @@ public class XboxRayShot : MonoBehaviour {
         }
         aux.y += spawnOffsetY;
         this.transform.position = aux;
+    }
+
+    /// <summary>
+    /// Rota el rayo adecuadamente hacia `target`.
+    /// </summary>
+    private void SetStartRotation(Xbox360 shooter, Player target) {
+        Quaternion rotation = Quaternion.FromToRotation(shooter.transform.position, target.transform.position);
+        this.transform.rotation = rotation;
+        Debug.LogFormat("[XboxRayShot] Rotated {0} towards player", rotation);
     }
 }

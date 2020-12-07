@@ -10,12 +10,14 @@ Versión de Unity: `2019.4.11f1`
 
 ## Lista de cheats
 
-| Código       | Acción                                                             |
-|--------------|--------------------------------------------------------------------|
-| `STRONGMIND` | Ningún ataque hace daño al jugador                                 |
-| `@MAXIMUM`   | Rellenar sanidad mental.                                           |
-| `BORING`     | Bajar la sanidad lo suficiente como para entrar en modo pesadilla. |
-| `CANDY`      | Obtener pistola de rayos (RayGun).                                 |
-| `STICK`      | Obtener espada (ShockSword).                                       |
-| `ATODOGAS`   | Super velocidad del jugador.                                       |
-| `AEGIS`      | Pasar al siguiente nivel.                                          |
+| Código       | Acción                                      |
+|--------------|---------------------------------------------|
+| `STRONGMIND` | [Toggle] Ningún ataque hace daño al jugador |
+| `@MAX`       | Rellenar sanidad mental                     |
+| `FRENZY`     | [Toggle] Forzar modo pesadilla              |
+| `PIUMPIUM`   | Obtener pistola de rayos (RayGun)           |
+| `STICK`      | Obtener espada (ShockSword)                 |
+| `ATODOGAS`   | Super velocidad de movimiento del jugador   |
+| `AEGIS`      | Pasar instantáneamente al siguiente nivel   |
+
+Los cheats [Toggle] se pueden desactivar al ingresar de nuevo el código.

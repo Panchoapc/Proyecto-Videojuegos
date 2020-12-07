@@ -10,26 +10,25 @@ public class Xbox360 : Enemy {
     public static readonly float DODGE_TIME = 0.8f; // segundos por los que se mantiene esquivando
     public static readonly float DODGE_COOLDOWN = 3; // intervalo de tiempo (segundos) mínimo entre movimientos de esquivar
 
-    [SerializeField] private Animator animator = null;
-    private bool isInNightmareMode = false;
-    private bool rayAvailable = true; // para el cooldown del rayo
-    private Player player = null;
+    private Animator animator = null;
+    private bool isDodging = false;
+    private bool isRayAvailable = true;
+    private bool isDodgeAvailable = true;
+
     private Factory factory = null;
 
-    private bool isDodging = false;
-    private bool dodgeAvailable = true;
-
     protected override void Start() {
+        base.Start();
         this.moveSpeed = MOVE_SPEED;
         this.touchAttack = TOUCH_ATTACK;
         this.health = MAX_HEALTH;
         this.player = FindObjectOfType<Player>();
-        this.playerTransform = player.transform;
         this.factory = FindObjectOfType<Factory>();
+        this.animator = this.GetComponent<Animator>();
     }
 
-    protected override void Update() {
-        if (GameManager.isPaused) return;
+    private void Update() {
+        if (GameManager.isGamePaused) return;
 
         if (this.isDodging) {
             this.Move(this.moveDir, DODGE_SPEED);
@@ -37,14 +36,11 @@ public class Xbox360 : Enemy {
         }
 
         this.FollowPlayer();
-        bool nightmareCondition = this.player.mentalSanity < Player.NIGHTMARE_SANITY;
+        this.CheckNightmareCondition();
         if (this.isInNightmareMode) { // en el modo pesadilla, puede esquivar y tirar rayos
-            if (this.dodgeAvailable && UnityEngine.Random.value < 0.2) this.DodgeMove(player.transform);
-            if (this.rayAvailable) this.RayAttack();
+            if (this.isDodgeAvailable && Random.value < 0.2) this.DodgeMove(player.transform);
+            if (this.isRayAvailable) this.RayAttack();
         }
-
-        if (nightmareCondition && !this.isInNightmareMode) this.EnterNightmareMode();
-        else if (!nightmareCondition && this.isInNightmareMode) this.ExitNightmareMode();
     }
 
     /// <summary>
@@ -53,11 +49,11 @@ public class Xbox360 : Enemy {
     private void DodgeMove(Transform target) {
         Debug.LogFormat("[Xbox360] Dodging...");
         Vector3 targetDir = (target.position - this.transform.position).normalized;
-        float rotationDir = UnityEngine.Random.value < 0.5f ? 1 : -1;
+        float rotationDir = (Random.value < 0.5f) ? 1 : -1;
         Vector3 dodgeDir = Quaternion.AngleAxis(90 * rotationDir, targetDir).eulerAngles.normalized;
         this.moveDir = dodgeDir;
         this.isDodging = true;
-        this.dodgeAvailable = false;
+        this.isDodgeAvailable = false;
         Invoke(nameof(FinishDodge), DODGE_TIME);
         Invoke(nameof(DodgeCooldown), DODGE_COOLDOWN);
     }
@@ -74,7 +70,7 @@ public class Xbox360 : Enemy {
     /// </summary>
     private void DodgeCooldown() {
         Debug.LogFormat("[Xbox360] Dodge move cooled down.");
-        this.dodgeAvailable = true;
+        this.isDodgeAvailable = true;
     }
 
     /// <summary>
@@ -85,7 +81,7 @@ public class Xbox360 : Enemy {
         animator.SetTrigger("rayAttack"); // llamando a la animación de ataque
         Invoke(nameof(CreateOneRay), 0);
         Invoke(nameof(CreateOneRay), 0.3f);
-        this.rayAvailable = false;
+        this.isRayAvailable = false;
         Invoke(nameof(RayAttackCooldown), RAY_ATTACK_COOLDOWN);
     }
 
@@ -97,7 +93,7 @@ public class Xbox360 : Enemy {
     /// Habilita el ataque de rayo para ser usado nuevamente en el siguiente `Update()`.
     /// </summary>
     private void RayAttackCooldown() {
-        rayAvailable = true;
+        isRayAvailable = true;
     }
 
     protected override void EnterNightmareMode() {

@@ -7,24 +7,20 @@ public class PizzaMonster : Enemy {
     public static readonly int MAX_HEALTH = 200;
 
     private Animator animator = null;
-    private bool isInNightmareMode = false;
 
     protected override void Start() {
-        this.playerTransform = FindObjectOfType<Player>().transform;
-        this.animator = this.GetComponent<Animator>();
+        base.Start();
         this.moveSpeed = MOVE_SPEED;
         this.touchAttack = BITE_ATTACK;
         this.health = MAX_HEALTH;
+        this.animator = this.GetComponent<Animator>();
     }
 
-    protected override void Update() {
-        if (GameManager.isPaused) return;
+    private void Update() {
+        if (GameManager.isGamePaused) return;
 
         this.FollowPlayer();
-        if (this.isInNightmareMode) return;
-        bool nightmareCondition = FindObjectOfType<Player>().mentalSanity < Player.NIGHTMARE_SANITY;
-        if (nightmareCondition && !this.isInNightmareMode) this.EnterNightmareMode();
-        else if (!nightmareCondition && this.isInNightmareMode) this.ExitNightmareMode();
+        this.CheckNightmareCondition();
     }
 
     public override void OnPostTouchAttack() {
