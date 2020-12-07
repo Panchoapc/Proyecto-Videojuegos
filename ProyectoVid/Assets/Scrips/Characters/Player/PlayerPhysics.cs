@@ -21,7 +21,8 @@ public static class PlayerPhysics { // AKA PhysicsController
                 p.PickUpWeapon(obj, true);
                 break;
             case "door":
-                GameManager.WinGame();
+                //ACA PAUSAR 1.5 SEGUNDOS
+                GameManager.NextScene();
                 break;
         }
     }

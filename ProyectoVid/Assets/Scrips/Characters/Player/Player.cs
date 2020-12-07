@@ -10,6 +10,7 @@ public class Player : Character {
     public AudioSource raygunSound = null;
     public AudioSource swordSound = null;
     public AudioSource eatSound = null;
+    public AudioSource winSound = null;
 
     public int lives { get; private set; } // cantidad de intentos ϵ [0, MAX_LIVES]
     public int mentalSanity { get; private set; } // vida (sanidad mental) ϵ [0, MAX_SANITY]
@@ -58,6 +59,7 @@ public class Player : Character {
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
+        //ACA PAUSAR 1.5 SEGUNDOS
         PlayerPhysics.HandleCollision(this, collision);
     }
 

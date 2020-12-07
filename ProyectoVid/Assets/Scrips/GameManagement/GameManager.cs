@@ -15,4 +15,8 @@ public static class GameManager {
     public static void WinGame() {
         SceneManager.LoadScene("WinGameMenu", LoadSceneMode.Single);
     }
+
+    public static void NextScene() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
 }
