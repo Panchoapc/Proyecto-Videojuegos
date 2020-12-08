@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
 
-public class BaloonBehaviour : Enemy
-{
+public class BaloonBehaviour : Enemy{
     [SerializeField] private float MOVE_SPEED = 1f; // velocidad base de movimiento
     [SerializeField] private float startPosition; // posicion inicial
     [SerializeField] private float stopPosition = 3f; // radio de movimiento (offset)
     public static readonly int TOUCH_ATTACK = 20; // ataque por contacto
-    public static readonly int MAX_HEALTH = 150;
+    public static readonly int MAX_HEALTH = 100;
     private Rigidbody2D myRigidbody;
     //BoxCollider2D myBoxCollider;
 

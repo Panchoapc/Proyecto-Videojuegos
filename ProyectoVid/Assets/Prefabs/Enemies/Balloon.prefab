@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 5717052832684920812}
   - component: {fileID: 5717052832684920819}
   - component: {fileID: 5717052832684920818}
-  m_Layer: 0
-  m_Name: Baloon
+  m_Layer: 10
+  m_Name: Balloon
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149,7 +149,6 @@ MonoBehaviour:
   MOVE_SPEED: 2
   startPosition: 8
   stopPosition: 4
-  animator: {fileID: 5717052832684920818}
 --- !u!114 &5717052832684920819
 MonoBehaviour:
   m_ObjectHideFlags: 0
