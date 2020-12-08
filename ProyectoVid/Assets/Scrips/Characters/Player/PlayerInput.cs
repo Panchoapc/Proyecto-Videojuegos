@@ -6,6 +6,7 @@ public static class PlayerInput { // AKA InputController
         PlayerPhysics.Move(p, Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         if (Input.GetKeyDown(KeyCode.Space)) {
             PlayerState.Attack(p);
+            p.animator.SetTrigger("Attack");
         }
     }
 }

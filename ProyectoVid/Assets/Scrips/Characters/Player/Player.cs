@@ -133,9 +133,20 @@ public class Player : Character {
         switch (weapon) {
             case "RayGun":
                 this.spriteRenderer.sprite = this.spriteRayGunIdle;
+                if (animator.GetBool("HaveSword"))
+                {
+                    animator.SetTrigger("SwitchGuns");
+                }
+                animator.SetBool("HaveSword", false);
+                animator.SetBool("HaveGun", true);
                 break;
             case "ShockSword":
                 this.spriteRenderer.sprite = this.spriteSwordIdle;
+                if (animator.GetBool("HaveGun"))
+                {
+                    animator.SetTrigger("SwitchGuns");
+                }
+                animator.SetBool("HaveGun", false);
                 animator.SetBool("HaveSword", true);
                 break;
             default:
