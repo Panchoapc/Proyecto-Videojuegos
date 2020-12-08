@@ -18,8 +18,8 @@ public class Player : Character {
     private Vector3 startingPos; // se guarda la posicion inicial para poder volver a esta en el caso de quedarse sin vida
     [SerializeField] private Insanity sanityBar = null;
     [SerializeField] private PlayerLives livesDisplay = null;
-
     [SerializeField] public SpriteRenderer spriteRenderer = null;
+    [SerializeField] public Animator animator;
     //[SerializeField] private Sprite spriteDefaultIdle = null;
     [SerializeField] private Sprite spriteRayGunIdle = null;
     [SerializeField] private Sprite spriteSwordIdle = null;
@@ -48,6 +48,7 @@ public class Player : Character {
     private void Update() {
         if (GameManager.isGamePaused) return;
         PlayerInput.Process(this);
+        speedCheck();
     }
 
     void tentaclesCheck() {
@@ -58,7 +59,12 @@ public class Player : Character {
             this.tentaclesUI.HideTentacles();
         }
     }
-
+    // Se crea funcion para checkear condiciones de las animaciones
+    private void speedCheck()
+    {
+        float speed = Input.GetAxisRaw("Horizontal") + Input.GetAxisRaw("Vertical");
+        animator.SetFloat("Speed", Mathf.Abs(speed));
+    }
     private void OnCollisionEnter2D(Collision2D collision) {
         //ACA PAUSAR 1.5 SEGUNDOS
         PlayerPhysics.HandleCollision(this, collision);
@@ -130,6 +136,7 @@ public class Player : Character {
                 break;
             case "ShockSword":
                 this.spriteRenderer.sprite = this.spriteSwordIdle;
+                animator.SetBool("HaveSword", true);
                 break;
             default:
                 Debug.LogErrorFormat("[Player] Error: unkown weapon name picked up (couldn't find sprite).");

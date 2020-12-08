@@ -30,6 +30,7 @@ public static class PlayerState { // AKA StateController
     private static void SwordAttack(Player p) {
         if (p.swordCombatHandler.SwordAttack()) {
             p.swordSound.Play();
+            p.animator.SetBool("SwordHit", true);
             p.spriteRenderer.sprite = p.spriteSwordAttack; // TODO: reemplazar por animación
             p.Invoke(nameof(p.SwordRestoreSprite), p.swordAttackSpriteDuration);
         } else {
