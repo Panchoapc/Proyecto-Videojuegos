@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PizzaMonster : Enemy {
     public static readonly float MOVE_SPEED = 4;
-    public static readonly int BITE_ATTACK = 30; // ataque por contacto
+    public static readonly int BITE_ATTACK = 35; // ataque por contacto
     public static readonly float BITE_FREEZE_TIME = 0.5f; // cantidad de segundos en que no se mueve luego de pegarle una mascada al jugador
     public static readonly int MAX_HEALTH = 200;
 
