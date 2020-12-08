@@ -2,12 +2,14 @@
 using UnityEngine;
 
 /// <summary>
-/// Sistema de trampas del juego.
+/// Sistema de trampas del juego. Se pueden llamar en cualquier momento ingresando el código en el teclado.
 /// Referencias: https://answers.unity.com/questions/553597/how-to-implement-cheat-codes.html
 /// </summary>
 public class PlayerCheats : MonoBehaviour {
     public static bool GOD_MODE { get; private set; } = false;
+    public static bool FORCED_NIGHTMARE_MODE { get; private set; } = false;
     private const float SUPER_MOVE_SPEED = 18;
+
     [SerializeField] private GameObject rayGunPrefab = null;
     [SerializeField] private GameObject swordPrefab = null;
     private Player player;
@@ -15,7 +17,7 @@ public class PlayerCheats : MonoBehaviour {
     private int[] cheatCodesIndex; // variable auxiliar para identificar códigos de cheats
 
     /// <summary>
-    /// Representa una trampa activada por código ocultos.
+    /// Contenedor del código de una trampa y lo que hace al activarse.
     /// </summary>
     private class GameCheat {
         private string name; // nombre de la trampa (no importante)
@@ -38,41 +40,33 @@ public class PlayerCheats : MonoBehaviour {
         this.player = FindObjectOfType<Player>();
 
         /**
-         * STRONGMIND | Ningún ataque hace daño al jugador.
-         * @MAXIMUM   | Rellenar sanidad mental.
-         * BORING     | Bajar la sanidad lo suficiente como para entrar en modo pesadilla.
-         * CANDY      | Obtener pistola de rayos (RayGun).
-         * STICK      | Obtener espada (ShockSword).
-         * ATODOGAS   | Super velocidad del jugador.
-         * AEGIS      | Pasar al siguiente nivel.
+         * Ver README para tabla de cheats.
          */
         this.cheats = new GameCheat[] {
             new GameCheat(
                 "Toggle invulnerability",
                 new KeyCode[] { KeyCode.S, KeyCode.T, KeyCode.R, KeyCode.O, KeyCode.N, KeyCode.G, KeyCode.M, KeyCode.I, KeyCode.N, KeyCode.D },
                 () => {
-                    PlayerCheats.GOD_MODE = !PlayerCheats.GOD_MODE;
+                    GOD_MODE = !GOD_MODE;
                 }
             ),
             new GameCheat(
                 "Full mental sanity",
-                new KeyCode[] { KeyCode.At, KeyCode.M, KeyCode.A, KeyCode.X, KeyCode.I, KeyCode.M, KeyCode.U, KeyCode.M },
+                new KeyCode[] { KeyCode.At, KeyCode.M, KeyCode.A, KeyCode.X },
                 () => {
                     this.player.Heal(Player.MAX_SANITY);
                 }
             ),
             new GameCheat(
-                "Enter nightmare mode",
-                new KeyCode[] { KeyCode.B, KeyCode.O, KeyCode.R, KeyCode.I, KeyCode.N, KeyCode.G },
+                "Toggle force nightmare mode",
+                new KeyCode[] { KeyCode.F, KeyCode.R, KeyCode.E, KeyCode.N, KeyCode.Z, KeyCode.Y },
                 () => {
-                    if (player.mentalSanity > Player.NIGHTMARE_SANITY) { // sólo entra en modo pesadilla si no estaba antes en ese estado
-                        player.TakeDamage(player.mentalSanity - Player.NIGHTMARE_SANITY);
-                    }
+                    FORCED_NIGHTMARE_MODE = !FORCED_NIGHTMARE_MODE;
                 }
             ),
             new GameCheat(
                 "Get RayGun",
-                new KeyCode[] { KeyCode.C, KeyCode.A, KeyCode.N, KeyCode.D, KeyCode.Y },
+                new KeyCode[] { KeyCode.P, KeyCode.I, KeyCode.U, KeyCode.M, KeyCode.P, KeyCode.I, KeyCode.U, KeyCode.M },
                 () => {
                     player.PickUpWeapon(rayGunPrefab, false);
                 }
@@ -88,14 +82,13 @@ public class PlayerCheats : MonoBehaviour {
                 "Super movement speed",
                 new KeyCode[] { KeyCode.A, KeyCode.T, KeyCode.O, KeyCode.D, KeyCode.O, KeyCode.G, KeyCode.A, KeyCode.S },
                 () => {
-                    player.ChangeMoveSpeed(PlayerCheats.SUPER_MOVE_SPEED);
+                    player.ChangeMoveSpeed(SUPER_MOVE_SPEED);
                 }
             ),
             new GameCheat(
                 "Jump to next level",
                 new KeyCode[] { KeyCode.A, KeyCode.E, KeyCode.G, KeyCode.I, KeyCode.S },
                 () => {
-                    // TODO: impedir bug al llamarse en el segundo nivel.
                     player.LoadNextLevel();
                 }
             )
@@ -122,7 +115,7 @@ public class PlayerCheats : MonoBehaviour {
     }
 
     /// <summary>
-    /// Rellena `cheatCodesIndex` de ceros, reiniciando así el "progreso" de los códigos de todos los cheats.
+    /// Rellena `cheatCodesIndex` con ceros, reiniciando así el "progreso" de los códigos de todos los cheats.
     /// </summary>
     private void ClearCheatIndex() {
         for (int n = 0; n < this.cheatCodesIndex.Length; n++) {

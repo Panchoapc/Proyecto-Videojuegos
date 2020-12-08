@@ -45,7 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5044fc0953966e488b82c4624a0f67c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 20
   spawnOffsetX: 2.8
   spawnOffsetY: 0.8
 --- !u!212 &1061657318739617208

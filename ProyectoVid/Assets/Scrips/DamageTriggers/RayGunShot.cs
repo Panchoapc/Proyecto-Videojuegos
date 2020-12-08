@@ -11,12 +11,12 @@ public class RayGunShot : MonoBehaviour {
     private Vector3 moveDirection; // auxiliar
 
     private void Start() {
-        this.SetInitialPosition(FindObjectOfType<Player>());
+        this.SetStartPosition(FindObjectOfType<Player>());
         Destroy(this.gameObject, LIFESPAN_SECONDS);
     }
 
     private void Update() {
-        if (GameManager.isPaused) return;
+        if (GameManager.isGamePaused) return;
 
         this.transform.position += this.moveDirection * this.moveSpeed * Time.deltaTime;
     }
@@ -24,7 +24,7 @@ public class RayGunShot : MonoBehaviour {
     /// <summary>
     /// Se posiciona desde `shooter` y añade el offset.
     /// </summary>
-    private void SetInitialPosition(Player shooter) {
+    private void SetStartPosition(Player shooter) {
         Vector3 aux = shooter.transform.position;
         if (shooter.isFacingRight) {
             aux.x += spawnOffsetX;

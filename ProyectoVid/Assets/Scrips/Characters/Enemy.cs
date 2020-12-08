@@ -7,16 +7,12 @@ public abstract class Enemy : Character {
     public int touchAttack { get; protected set; } // daño que hace al tocar al jugador (por colisión)
     public int health { get; protected set; } // resistencia al daño
     protected Vector3 moveDir;
-    protected Transform playerTransform = null;
-
+    protected Player player = null;
+    protected bool isInNightmareMode = false;
     [SerializeField] private AudioSource hitSound = null;
 
     protected virtual void Start() {
-        this.playerTransform = GameObject.FindObjectOfType<Player>().transform;
-    }
-
-    protected virtual void Update() {
-        this.FollowPlayer();
+        this.player = GameObject.FindObjectOfType<Player>(); // <- siempre implementar. Siempre sobreescribir con `base.Start()`.
     }
 
     /// <summary>
@@ -24,9 +20,9 @@ public abstract class Enemy : Character {
     /// </summary>
     protected virtual void OnTriggerEnter2D(Collider2D collider) {
         // recibiendo daño si choca con un hitbox de un ataque del jugador
-        Debug.LogFormat("[Enemy] Triggered with collider named \"{0}\" and tagged \"{1}\"", collider.name, collider.tag);
+        //Debug.LogFormat("[Enemy] Triggered with collider named \"{0}\" and tagged \"{1}\"", collider.name, collider.tag);
         if (collider.name.Contains("RayGunShot")) {
-            this.health -= PlayerGunCombat.RAYGUN_SHOT_ATTACK;
+            this.TakeDamage(PlayerGunCombat.RAYGUN_SHOT_ATTACK);
             Debug.LogFormat("[Enemy] Got {0} damage from LightRay. Remaining health: {1}", PlayerGunCombat.RAYGUN_SHOT_ATTACK, this.health);
         }
         else {
@@ -50,12 +46,14 @@ public abstract class Enemy : Character {
     /// Persigue al jugador.
     /// </summary>
     protected void FollowPlayer() {
-        this.moveDir = (playerTransform.position - this.transform.position).normalized;
+        this.moveDir = (player.transform.position - this.transform.position).normalized;
         this.FlipOnMovementX(moveDir.x - this.transform.position.x); // siempre mira al jugador
         this.Move(this.moveDir, this.moveSpeed);
     }
 
     public void TakeDamage(int dmg) {
+        if (dmg <= 0) Debug.LogErrorFormat("[Enemy] Warning: took negative or zero damage!");
+
         this.health = System.Math.Max(this.health - dmg, 0);
         Debug.LogFormat("[Enemy] Took {0} damage, {1} remaining", dmg, this.health);
         if (hitSound != null) hitSound.Play();
@@ -66,12 +64,24 @@ public abstract class Enemy : Character {
     }
 
     /// <summary>
-    /// Entra en modo pesadilla.
+    /// Retorna si en este instante se cumple la condición para entrar/permanecer en modo pesadilla.
+    /// Ya implementa `EnterNightmareMode` y `ExitNightmareMode` de acuerdo al cambio de la condición,
+    /// i.e. si el estado de pesadilla no ha cambiado, no ejecuta ninguna de esas dos funciones.
+    /// </summary>
+    protected bool CheckNightmareCondition() {
+        bool nightmare_condition = (this.player.mentalSanity <= Player.NIGHTMARE_SANITY) || PlayerCheats.FORCED_NIGHTMARE_MODE;
+        if (nightmare_condition && !this.isInNightmareMode) this.EnterNightmareMode();
+        else if (!nightmare_condition && this.isInNightmareMode) this.ExitNightmareMode();
+        return nightmare_condition;
+    }
+
+    /// <summary>
+    /// Cambio de comportamiento al entrar en modo pesadilla.
     /// </summary>
     abstract protected void EnterNightmareMode();
 
     /// <summary>
-    /// Sale de modo mesadilla.
+    /// Cambio de comportamiento al salir del modo mesadilla.
     /// </summary>
     abstract protected void ExitNightmareMode();
 }

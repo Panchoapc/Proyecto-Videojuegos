@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Dorito : MonoBehaviour
 {
-    public readonly int HP = 10;
+    public static readonly int HP = 10;
 
     private void OnTriggerEnter2D(Collider2D collider)
     {

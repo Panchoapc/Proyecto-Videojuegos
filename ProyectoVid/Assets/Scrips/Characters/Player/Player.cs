@@ -46,7 +46,7 @@ public class Player : Character {
     }
 
     private void Update() {
-        if (GameManager.isPaused) return;
+        if (GameManager.isGamePaused) return;
         PlayerInput.Process(this);
     }
 
@@ -92,7 +92,7 @@ public class Player : Character {
     public void TakeDamage(int dmg) {
         if (PlayerCheats.GOD_MODE) return; // implementando cheat de invulnerabilidad
 
-        if (dmg <= 0) Debug.LogErrorFormat("[Player] Warning: player took negative or zero damage!");
+        if (dmg <= 0) Debug.LogErrorFormat("[Player] Warning: took negative or zero damage!");
         this.mentalSanity = System.Math.Max(this.mentalSanity - dmg, 0); // asugurando nunca una vida negativa, para no tener problemas.
         Debug.LogFormat("[Player] Took {0} damage, {1} remaining", dmg, this.mentalSanity);
         this.sanityBar.SetSanity(mentalSanity);
@@ -145,6 +145,9 @@ public class Player : Character {
         this.spriteRenderer.sprite = this.spriteSwordIdle;
     }
 
+    /// <summary>
+    /// Usado para la cheat de super velocidad.
+    /// </summary>
     public void ChangeMoveSpeed(float newSpeed) {
         this.moveSpeed = newSpeed;
     }

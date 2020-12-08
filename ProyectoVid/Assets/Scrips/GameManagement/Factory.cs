@@ -15,8 +15,8 @@ public class Factory : MonoBehaviour {
     /// <summary>
     /// Instancia un disparo del ataque de rayos de las luces rojas de la muerte de la Xbox 360.
     /// </summary>
-    public void SpawnXboxRayShot() {
-        Instantiate(this.xboxRayShotPrefab);
+    public void SpawnXboxRayShot(Vector2 position) {
+        Instantiate(this.xboxRayShotPrefab, position, Quaternion.identity);
     }
 
     /// <summary>

@@ -1,34 +1,38 @@
-﻿using System;
+﻿using System; 
 using UnityEngine;
 
 public class PizzaMonster : Enemy {
     public static readonly float MOVE_SPEED = 4;
     public static readonly int BITE_ATTACK = 30; // ataque por contacto
+    public static readonly float BITE_FREEZE_TIME = 0.5f; // cantidad de segundos en que no se mueve luego de pegarle una mascada al jugador
     public static readonly int MAX_HEALTH = 200;
 
     private Animator animator = null;
-    private bool isInNightmareMode = false;
+    private bool freezeMovement = false; // sirve para detener movimiento de la pizza
 
     protected override void Start() {
-        this.playerTransform = FindObjectOfType<Player>().transform;
-        this.animator = this.GetComponent<Animator>();
+        base.Start();
         this.moveSpeed = MOVE_SPEED;
         this.touchAttack = BITE_ATTACK;
         this.health = MAX_HEALTH;
+        this.animator = this.GetComponent<Animator>();
     }
 
-    protected override void Update() {
-        if (GameManager.isPaused) return;
+    private void Update() {
+        if (GameManager.isGamePaused || this.freezeMovement) return; // no se mueve durante un corto tiempo luego de haber atacado
 
         this.FollowPlayer();
-        if (this.isInNightmareMode) return;
-        bool nightmareCondition = FindObjectOfType<Player>().mentalSanity < Player.NIGHTMARE_SANITY;
-        if (nightmareCondition && !this.isInNightmareMode) this.EnterNightmareMode();
-        else if (!nightmareCondition && this.isInNightmareMode) this.ExitNightmareMode();
+        this.CheckNightmareCondition();
     }
 
     public override void OnPostTouchAttack() {
+        this.freezeMovement = true;
+        Invoke(nameof(UnfreezeMovement), BITE_FREEZE_TIME);
         this.animator.SetTrigger("biteAttack"); // ejecutando animación de mordida cuando haga daño por colisión al jugador
+    }
+
+    private void UnfreezeMovement() {
+        this.freezeMovement = false;
     }
 
     protected override void EnterNightmareMode() {
