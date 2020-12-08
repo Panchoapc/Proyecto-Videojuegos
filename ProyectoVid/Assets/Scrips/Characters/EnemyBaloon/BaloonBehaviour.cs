@@ -3,7 +3,7 @@
 public class BaloonBehaviour : Enemy
 {
     [SerializeField] private float MOVE_SPEED = 1f; // velocidad base de movimiento
-    [SerializeField] private float startPosition = 0f; // posicion inicial
+    [SerializeField] private float startPosition; // posicion inicial
     [SerializeField] private float stopPosition = 3f; // radio de movimiento (offset)
     public static readonly int TOUCH_ATTACK = 20; // ataque por contacto
     public static readonly int MAX_HEALTH = 150;
@@ -17,6 +17,7 @@ public class BaloonBehaviour : Enemy
     protected override void Start()
     {
         base.Start();
+        startPosition = transform.position.y;
         this.moveSpeed = MOVE_SPEED;
         this.touchAttack = TOUCH_ATTACK;
         this.health = MAX_HEALTH;
