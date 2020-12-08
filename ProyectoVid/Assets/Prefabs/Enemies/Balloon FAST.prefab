@@ -15,7 +15,17 @@ PrefabInstance:
     - target: {fileID: 5717052832684920813, guid: 7e4ef10c45b3d2344b00ea6dfb510d04,
         type: 3}
       propertyPath: m_Name
-      value: Balloon FAST Variant
+      value: Balloon FAST
+      objectReference: {fileID: 0}
+    - target: {fileID: 5717052832684920815, guid: 7e4ef10c45b3d2344b00ea6dfb510d04,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: -0.012146115
+      objectReference: {fileID: 0}
+    - target: {fileID: 5717052832684920815, guid: 7e4ef10c45b3d2344b00ea6dfb510d04,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.51815367
       objectReference: {fileID: 0}
     - target: {fileID: 5717052832684920816, guid: 7e4ef10c45b3d2344b00ea6dfb510d04,
         type: 3}
