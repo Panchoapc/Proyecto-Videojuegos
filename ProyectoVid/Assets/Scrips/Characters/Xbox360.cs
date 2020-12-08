@@ -2,10 +2,10 @@
 
 public class Xbox360 : Enemy {
     public static readonly float MOVE_SPEED = 3.2f; // velocidad base de movimiento
-    public static readonly int TOUCH_ATTACK = 15; // ataque por contacto
-    public static readonly int RAY_ATTACK = 10; // ataque por rayo
+    public static readonly int TOUCH_ATTACK = 15; // daño de ataque por contacto
+    public static readonly int RAY_ATTACK = 10; // daño de ataque por rayo
     public static readonly int MAX_HEALTH = 150;
-    public static readonly float RAY_ATTACK_COOLDOWN = 2; // segundos que hay entre disparos de rayos láser
+    public static readonly float RAY_ATTACK_COOLDOWN = 3.5f; // segundos que hay entre disparos de rayos láser
     public static readonly float DODGE_SPEED = 7; // velocidad a la que realiza el patrón de movimiento de esquivar
     public static readonly float DODGE_TIME = 0.8f; // segundos por los que se mantiene esquivando
     public static readonly float DODGE_COOLDOWN = 3; // intervalo de tiempo (segundos) mínimo entre movimientos de esquivar
